@@ -1,25 +1,25 @@
 package com.example.rentabookrestservices.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.Objects;
+import javax.persistence.*;
 
 @Entity
 public class Book {
 
-    private @Id @GeneratedValue Long id;
+    private @Id
+    @GeneratedValue Long id;
     private String isbn;
     private String name;
     private String author;
     private int publishYear;
     private int pages;
-    private String bookSpecification;
+
+    @OneToOne
+    private BookSpecification bookSpecification;
 
     public Book() {
     }
 
-    public Book(String isbn, String name, String author, int publishYear, int pages, String bookSpecification) {
+    public Book(String isbn, String name, String author, int publishYear, int pages, BookSpecification bookSpecification) {
         this.isbn = isbn;
         this.name = name;
         this.author = author;
@@ -76,12 +76,16 @@ public class Book {
         this.pages = pages;
     }
 
-    public String getBookSpecification() {
+    public BookSpecification getBookSpecification() {
         return bookSpecification;
     }
 
-    public void setBookSpecification(String bookSpecification) {
+    public void setBookSpecification(BookSpecification bookSpecification) {
         this.bookSpecification = bookSpecification;
     }
 
+    @Override
+    public String toString() {
+        return "Book id=" + this.id + ", isbn=" + this.isbn + ", name=" + this.name + ", ücreti=" + this.bookSpecification.getPrice();
+    }
 }
