@@ -5,8 +5,10 @@ import javax.persistence.*;
 @Entity
 public class Book {
 
-    private @Id
-    @GeneratedValue Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
     private String isbn;
     private String name;
     private String author;
@@ -86,6 +88,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book id=" + this.id + ", isbn=" + this.isbn + ", name=" + this.name + ", ücreti=" + this.bookSpecification.getPrice();
+        return "Kitabın Bilgileri" + " isbn=" + this.isbn + ", adı=" +
+                this.name + ", ücreti=" + this.bookSpecification.getPrice();
     }
 }

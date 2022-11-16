@@ -6,8 +6,10 @@ import java.time.LocalDate;
 @Entity
 public class BookSpecification {
 
-    private @Id
-    @GeneratedValue Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
     private String isbn;
     private float price;
     private LocalDate startDate;
