@@ -6,8 +6,6 @@ import com.example.rentabookrestservices.repository.CustomerRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +34,10 @@ public class CustomerService {
                 .orElseThrow(() -> new CustomerNotFoundException(id));
 
         return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Customer> createCustomer(Customer customer) {
+        return new ResponseEntity<>(customerRepository.save(customer), HttpStatus.CREATED);
     }
 
 }
