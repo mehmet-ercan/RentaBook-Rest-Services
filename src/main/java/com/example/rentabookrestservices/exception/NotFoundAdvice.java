@@ -20,4 +20,10 @@ public class NotFoundAdvice {
         return ex.getMessage();
     }
 
+    @ResponseBody
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String resourceNotFoundHandler(ResourceNotFoundException ex) {
+        return ex.getMessage();
+    }
 }

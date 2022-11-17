@@ -10,7 +10,6 @@ public class BookController {
 
     private final BookService bookService;
 
-
     BookController(BookService bookService) {
         this.bookService = bookService;
     }

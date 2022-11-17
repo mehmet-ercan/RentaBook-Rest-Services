@@ -3,25 +3,33 @@ package com.example.rentabookrestservices.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 public class Sale {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
-    @ElementCollection
-    private Map<Book, Integer> bookIntegerMap = new HashMap<>();
-    private int customerId;
-    private LocalDateTime operationDateTime;
-    private String operationNumber;
-    private float total;
+    @OneToMany
+    private List<SaleBookItems> saleBookItems = new ArrayList<>();
+
+    LocalDateTime operationDateTime;
+    int customerId;
+    String operationNumber;
+    float total;
 
     public Sale() {
+    }
+
+    public Sale(List<SaleBookItems> saleBookItems, LocalDateTime operationDateTime, int customerId, String operationNumber, float total) {
+        this.saleBookItems = saleBookItems;
+        this.operationDateTime = operationDateTime;
+        this.customerId = customerId;
+        this.operationNumber = operationNumber;
+        this.total = total;
     }
 
     public Long getId() {
@@ -32,20 +40,12 @@ public class Sale {
         this.id = id;
     }
 
-    public Map<Book, Integer> getBookIntegerMap() {
-        return bookIntegerMap;
+    public List<SaleBookItems> getSaleBookItems() {
+        return saleBookItems;
     }
 
-    public void setBookIntegerMap(Map<Book, Integer> bookIntegerMap) {
-        this.bookIntegerMap = bookIntegerMap;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setSaleBookItems(List<SaleBookItems> saleBookItems) {
+        this.saleBookItems = saleBookItems;
     }
 
     public LocalDateTime getOperationDateTime() {
@@ -54,6 +54,14 @@ public class Sale {
 
     public void setOperationDateTime(LocalDateTime operationDateTime) {
         this.operationDateTime = operationDateTime;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getOperationNumber() {
