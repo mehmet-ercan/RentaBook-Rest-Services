@@ -22,9 +22,9 @@ public class LoadDatabase {
                                    BookSpecificationRepository bookSpecificationRepository,
                                    CustomerRepository customerRepository,
                                    SaleRepository saleRepository,
-                                   SaleBookItemsRepository saleBookItemsRepository,
+                                   OrderBookItemsRepository saleBookItemsRepository,
                                    RentRepository rentRepository,
-                                   RentBookItemsRepository rentBookItemsRepository) {
+                                   CancelRepository cancelRepository) {
 
         return args -> {
             BookSpecification bs1 = new BookSpecification("123-45", 59.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
@@ -44,9 +44,10 @@ public class LoadDatabase {
             List<OrderBookItems> orderBookItemsList = new ArrayList<>();
             orderBookItemsList.add(orderBookItems);
 
-            Sale s1 = new Sale(orderBookItemsList, LocalDateTime.now(), 1, "", 12.f);
+            Sale s1 = new Sale(orderBookItemsList, LocalDateTime.now(), 1, "S021122163045", 12.f);
             saleRepository.save(s1);
 
+            /*
             orderBookItems = new OrderBookItems(b2, 3);
             orderBookItems = rentBookItemsRepository.save(orderBookItems);
             orderBookItemsList = new ArrayList<>();
@@ -54,6 +55,10 @@ public class LoadDatabase {
 
             Rent r1 = new Rent(orderBookItemsList, LocalDateTime.now(), 1, "", 12.f, LocalDateTime.now(), 123.2f);
             rentRepository.save(r1);
+
+*/
+            Cancel cancel = new Cancel(s1, 123f, LocalDateTime.now());
+            cancelRepository.save(cancel);
 
             log.info("Veriler Yüklendi");
         };

@@ -2,12 +2,10 @@ package com.example.rentabookrestservices.controller;
 
 import com.example.rentabookrestservices.domain.Sale;
 import com.example.rentabookrestservices.service.SaleService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +31,11 @@ public class SaleController {
     @PostMapping("/sales")
     public ResponseEntity<Sale> createSale(@RequestBody Sale sale) {
         return saleService.createSale(sale);
+    }
+
+    @DeleteMapping("/sales/{operationNumber}")
+    public ResponseEntity<HttpStatus> deleteSaleByOperationNumber(@PathVariable("operationNumber") String operationNumber){
+        return saleService.deleteSaleByOperationNumber(operationNumber);
     }
 
 

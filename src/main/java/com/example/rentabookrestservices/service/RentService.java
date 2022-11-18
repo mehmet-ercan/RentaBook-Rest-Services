@@ -2,7 +2,7 @@ package com.example.rentabookrestservices.service;
 
 import com.example.rentabookrestservices.domain.OrderBookItems;
 import com.example.rentabookrestservices.domain.Rent;
-import com.example.rentabookrestservices.repository.RentBookItemsRepository;
+import com.example.rentabookrestservices.repository.OrderBookItemsRepository;
 import com.example.rentabookrestservices.repository.RentRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +13,11 @@ import java.util.List;
 @Service
 public class RentService {
     private final RentRepository rentRepository;
-    private final RentBookItemsRepository rentBookItemsRepository;
+    private final OrderBookItemsRepository orderBookItemsRepository;
 
-    public RentService(RentRepository rentRepository, RentBookItemsRepository rentBookItemsRepository) {
+    public RentService(RentRepository rentRepository, OrderBookItemsRepository orderBookItemsRepository) {
         this.rentRepository = rentRepository;
-        this.rentBookItemsRepository = rentBookItemsRepository;
+        this.orderBookItemsRepository = orderBookItemsRepository;
     }
 
     public ResponseEntity<List<Rent>> getAllRent() {
@@ -32,7 +32,7 @@ public class RentService {
 
     public ResponseEntity<Rent> createRent(Rent rent) {
         List<OrderBookItems> orderBookItems = rent.getOrderBookItems();
-        rentBookItemsRepository.saveAll(orderBookItems);
+        orderBookItemsRepository.saveAll(orderBookItems);
         return new ResponseEntity<>(rentRepository.save(rent), HttpStatus.CREATED);
     }
 }
