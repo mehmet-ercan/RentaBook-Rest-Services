@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Configuration
@@ -18,11 +18,13 @@ public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
     @Bean
-    CommandLineRunner initDatabase(SaleRepository saleRepository,
-                                   BookRepository bookRepository,
+    CommandLineRunner initDatabase(BookRepository bookRepository,
                                    BookSpecificationRepository bookSpecificationRepository,
                                    CustomerRepository customerRepository,
-                                   SaleBookItemsRepository saleBookItemsRepository) {
+                                   SaleRepository saleRepository,
+                                   SaleBookItemsRepository saleBookItemsRepository,
+                                   RentRepository rentRepository,
+                                   RentBookItemsRepository rentBookItemsRepository) {
 
         return args -> {
             BookSpecification bs1 = new BookSpecification("123-45", 59.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
@@ -37,17 +39,21 @@ public class LoadDatabase {
 
             Customer c1 = new Customer("Ahmet Ali", "Erenler", "+905519896865");
 
-            SaleBookItems saleBookItems = new SaleBookItems(b1, 5);
-            saleBookItems = saleBookItemsRepository.save(saleBookItems);
+            OrderBookItems orderBookItems = new OrderBookItems(b1, 5);
+            orderBookItems = saleBookItemsRepository.save(orderBookItems);
+            List<OrderBookItems> orderBookItemsList = new ArrayList<>();
+            orderBookItemsList.add(orderBookItems);
 
-            Sale s1 = new Sale();
-            s1.setCustomerId(1);
-            s1.setTotal(39);
-            s1.setOperationNumber("S121222123456");
-            s1.setOperationDateTime(LocalDateTime.now());
-            s1.getSaleBookItems().add(saleBookItems);
+            Sale s1 = new Sale(orderBookItemsList, LocalDateTime.now(), 1, "", 12.f);
             saleRepository.save(s1);
 
+            orderBookItems = new OrderBookItems(b2, 3);
+            orderBookItems = rentBookItemsRepository.save(orderBookItems);
+            orderBookItemsList = new ArrayList<>();
+            orderBookItemsList.add(orderBookItems);
+
+            Rent r1 = new Rent(orderBookItemsList, LocalDateTime.now(), 1, "", 12.f, LocalDateTime.now(), 123.2f);
+            rentRepository.save(r1);
 
             log.info("Veriler Yüklendi");
         };

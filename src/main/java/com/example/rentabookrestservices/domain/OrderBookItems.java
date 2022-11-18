@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class SaleBookItems {
+public class OrderBookItems {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -14,10 +14,10 @@ public class SaleBookItems {
     private Book book;
     private Integer quantity;
 
-    public SaleBookItems() {
+    public OrderBookItems() {
     }
 
-    public SaleBookItems(Book book, Integer quantity) {
+    public OrderBookItems(Book book, Integer quantity) {
         this.book = book;
         this.quantity = quantity;
     }
@@ -49,7 +49,7 @@ public class SaleBookItems {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SaleBookItems that = (SaleBookItems) o;
+        OrderBookItems that = (OrderBookItems) o;
         return Objects.equals(id, that.id) && Objects.equals(book, that.book) && Objects.equals(quantity, that.quantity);
     }
 
@@ -60,7 +60,7 @@ public class SaleBookItems {
 
     @Override
     public String toString() {
-        return "SaleBookItems{" +
+        return "OrderBookItems{" +
                 "id=" + id +
                 ", book=" + book +
                 ", quantity=" + quantity +

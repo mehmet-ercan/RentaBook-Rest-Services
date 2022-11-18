@@ -14,18 +14,17 @@ public class Sale {
     private Long id;
 
     @OneToMany
-    private List<SaleBookItems> saleBookItems = new ArrayList<>();
-
-    LocalDateTime operationDateTime;
-    int customerId;
-    String operationNumber;
-    float total;
+    private List<OrderBookItems> orderBookItems = new ArrayList<>();
+    private LocalDateTime operationDateTime;
+    private int customerId;
+    private String operationNumber;
+    private float total;
 
     public Sale() {
     }
 
-    public Sale(List<SaleBookItems> saleBookItems, LocalDateTime operationDateTime, int customerId, String operationNumber, float total) {
-        this.saleBookItems = saleBookItems;
+    public Sale(List<OrderBookItems> orderBookItems, LocalDateTime operationDateTime, int customerId, String operationNumber, float total) {
+        this.orderBookItems = orderBookItems;
         this.operationDateTime = operationDateTime;
         this.customerId = customerId;
         this.operationNumber = operationNumber;
@@ -40,12 +39,12 @@ public class Sale {
         this.id = id;
     }
 
-    public List<SaleBookItems> getSaleBookItems() {
-        return saleBookItems;
+    public List<OrderBookItems> getOrderBookItems() {
+        return orderBookItems;
     }
 
-    public void setSaleBookItems(List<SaleBookItems> saleBookItems) {
-        this.saleBookItems = saleBookItems;
+    public void setOrderBookItems(List<OrderBookItems> orderBookItems) {
+        this.orderBookItems = orderBookItems;
     }
 
     public LocalDateTime getOperationDateTime() {
