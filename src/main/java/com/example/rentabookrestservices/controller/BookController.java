@@ -1,8 +1,10 @@
 package com.example.rentabookrestservices.controller;
 
 import com.example.rentabookrestservices.domain.Book;
+import com.example.rentabookrestservices.dto.BookCreateDto;
 import com.example.rentabookrestservices.service.BookService;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -10,9 +12,10 @@ public class BookController {
 
     private final BookService bookService;
 
-    BookController(BookService bookService) {
+    public BookController(BookService bookService) {
         this.bookService = bookService;
     }
+
 
     @GetMapping("/books")
     public List<Book> getAllBooks() {
@@ -25,8 +28,8 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public Book createBook(@RequestBody Book book) {
-        return bookService.createBook(book);
+    public Book createBook(@RequestBody BookCreateDto bookCreateDto) {
+        return bookService.createBook(bookCreateDto);
     }
 
     @DeleteMapping("/books/{id}")

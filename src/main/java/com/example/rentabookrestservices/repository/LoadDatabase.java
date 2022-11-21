@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Configuration
 public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
@@ -21,10 +20,9 @@ public class LoadDatabase {
     CommandLineRunner initDatabase(BookRepository bookRepository,
                                    BookSpecificationRepository bookSpecificationRepository,
                                    CustomerRepository customerRepository,
-                                   SaleRepository saleRepository,
-                                   OrderBookItemsRepository saleBookItemsRepository,
-                                   RentRepository rentRepository,
-                                   CancelRepository cancelRepository) {
+                                   OrderBookItemsRepository orderBookItemsRepository,
+                                   SaleRepository saleRepository
+    ) {
 
         return args -> {
             BookSpecification bs1 = new BookSpecification("123-45", 59.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
@@ -32,34 +30,22 @@ public class LoadDatabase {
             bookSpecificationRepository.save(bs1);
             bookSpecificationRepository.save(bs2);
 
-            Book b1 = new Book("123-45", "Bir Zamanlar", "Mehmet Ercan", 2021, 571, bs1);
-            Book b2 = new Book("123-46", "Toyota Tarzı", "Jeffrey K. Liner", 2010, 622, bs2);
-            bookRepository.save(b1);
-            bookRepository.save(b2);
+            Book book1 = new Book("123-45", "Bir Zamanlar", "Mehmet Ercan", 2021, 571, bs1);
+            Book book2 = new Book("123-46", "Toyota Tarzı", "Jeffrey K. Liner", 2010, 622, bs2);
+            bookRepository.save(book1);
+            bookRepository.save(book2);
 
-            Customer c1 = new Customer("Ahmet Ali", "Erenler", "+905519896865");
+            Customer customer1 = new Customer("Ahmet Ali", "Erenler", "+905519896865");
+            customerRepository.save(customer1);
 
-            OrderBookItems orderBookItems = new OrderBookItems(b1, 5);
-            orderBookItems = saleBookItemsRepository.save(orderBookItems);
+            OrderBookItems orderBookItems = new OrderBookItems(book1, 1);
+            orderBookItemsRepository.save(orderBookItems);
             List<OrderBookItems> orderBookItemsList = new ArrayList<>();
             orderBookItemsList.add(orderBookItems);
 
-            Sale s1 = new Sale(orderBookItemsList, LocalDateTime.now(), 1, "S021122163045", 12.f);
-            saleRepository.save(s1);
-
-            /*
-            orderBookItems = new OrderBookItems(b2, 3);
-            orderBookItems = rentBookItemsRepository.save(orderBookItems);
-            orderBookItemsList = new ArrayList<>();
-            orderBookItemsList.add(orderBookItems);
-
-            Rent r1 = new Rent(orderBookItemsList, LocalDateTime.now(), 1, "", 12.f, LocalDateTime.now(), 123.2f);
-            rentRepository.save(r1);
-
-*/
-            Cancel cancel = new Cancel(s1, 123f, LocalDateTime.now());
-            cancelRepository.save(cancel);
-
+            Sale sale = new Sale(orderBookItemsList, LocalDateTime.now(), customer1.getId().intValue(),
+                    "S121212121212", 123f);
+            saleRepository.save(sale);
             log.info("Veriler Yüklendi");
         };
     }

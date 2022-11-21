@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 public interface SaleRepository extends JpaRepository<Sale, Long> {
     Sale findByOperationNumber(String operationNumber);
     boolean existsByOperationNumber(String operationNumber);
+
     @Transactional
     void deleteByOperationNumber(String operationNumber);
+
 }

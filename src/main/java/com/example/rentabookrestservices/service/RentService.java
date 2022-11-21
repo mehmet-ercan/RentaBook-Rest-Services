@@ -20,7 +20,7 @@ public class RentService {
         this.orderBookItemsRepository = orderBookItemsRepository;
     }
 
-    public ResponseEntity<List<Rent>> getAllRent() {
+    public ResponseEntity<List<Rent>> getAllRents() {
         List<Rent> rentList = rentRepository.findAll();
 
         if (rentList.isEmpty()) {
@@ -30,9 +30,24 @@ public class RentService {
         return new ResponseEntity<>(rentList, HttpStatus.OK);
     }
 
+    public ResponseEntity<Rent> getRent(String operationNumber) {
+        Rent rent = rentRepository.findByOperationNumber(operationNumber);
+        return new ResponseEntity<Rent>(rent, HttpStatus.OK);
+    }
+
     public ResponseEntity<Rent> createRent(Rent rent) {
         List<OrderBookItems> orderBookItems = rent.getOrderBookItems();
         orderBookItemsRepository.saveAll(orderBookItems);
         return new ResponseEntity<>(rentRepository.save(rent), HttpStatus.CREATED);
+    }
+
+
+    public ResponseEntity<HttpStatus> deleteRentByOperationNumber(String operationNumber) {
+        rentRepository.deleteByOperationNumber(operationNumber);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    public boolean isExistRent(String operationNumber) {
+        return rentRepository.existsByOperationNumber(operationNumber);
     }
 }

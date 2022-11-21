@@ -34,7 +34,7 @@ public class SaleController {
     }
 
     @DeleteMapping("/sales/{operationNumber}")
-    public ResponseEntity<HttpStatus> deleteSaleByOperationNumber(@PathVariable("operationNumber") String operationNumber){
+    public ResponseEntity<HttpStatus> deleteSale(@PathVariable("operationNumber") String operationNumber){
         return saleService.deleteSaleByOperationNumber(operationNumber);
     }
 

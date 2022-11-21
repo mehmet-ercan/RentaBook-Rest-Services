@@ -2,7 +2,9 @@ package com.example.rentabookrestservices.service;
 
 import com.example.rentabookrestservices.domain.Book;
 import com.example.rentabookrestservices.domain.BookSpecification;
+import com.example.rentabookrestservices.dto.BookCreateDto;
 import com.example.rentabookrestservices.exception.BookNotFoundException;
+import com.example.rentabookrestservices.mapper.BookMapper;
 import com.example.rentabookrestservices.repository.BookRepository;
 import com.example.rentabookrestservices.repository.BookSpecificationRepository;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,8 @@ public class BookService {
                 .orElseThrow(() -> new BookNotFoundException(id));
     }
 
-    public Book createBook(Book book) {
+    public Book createBook(BookCreateDto bookCreateDto) {
+        Book book = BookMapper.INSTANCE.bookCreateDtoToBook(bookCreateDto);
         bookSpecificationRepository.save(book.getBookSpecification());
         return bookRepository.save(book);
     }
