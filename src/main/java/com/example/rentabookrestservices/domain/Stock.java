@@ -9,17 +9,21 @@ public class Stock {
     @Column(name = "id", nullable = false)
     private Long id;
     private String isbn;
-    private int quantiy;
+    private int quantity;
     private String shelfNumber;
+
+    @OneToOne
+    private Book book;
 
     public Stock() {
     }
 
-    public Stock(String isbn, int quantiy, String shelfNumber) {
+    public Stock(String isbn, int quantity, String shelfNumber) {
         this.isbn = isbn;
-        this.quantiy = quantiy;
+        this.quantity = quantity;
         this.shelfNumber = shelfNumber;
     }
+
 
     public Long getId() {
         return id;
@@ -37,12 +41,12 @@ public class Stock {
         this.isbn = isbn;
     }
 
-    public int getQuantiy() {
-        return quantiy;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setQuantiy(int quantiy) {
-        this.quantiy = quantiy;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getShelfNumber() {
@@ -51,5 +55,13 @@ public class Stock {
 
     public void setShelfNumber(String shelfNumber) {
         this.shelfNumber = shelfNumber;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 }

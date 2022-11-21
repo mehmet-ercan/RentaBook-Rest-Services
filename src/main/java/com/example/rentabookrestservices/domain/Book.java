@@ -14,7 +14,6 @@ public class Book {
     private String author;
     private int publishYear;
     private int pages;
-
     @OneToOne
     private BookSpecification bookSpecification;
 

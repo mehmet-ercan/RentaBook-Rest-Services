@@ -21,7 +21,8 @@ public class LoadDatabase {
                                    BookSpecificationRepository bookSpecificationRepository,
                                    CustomerRepository customerRepository,
                                    OrderBookItemsRepository orderBookItemsRepository,
-                                   SaleRepository saleRepository
+                                   SaleRepository saleRepository,
+                                   StockRepository stockRepository
     ) {
 
         return args -> {
@@ -46,6 +47,15 @@ public class LoadDatabase {
             Sale sale = new Sale(orderBookItemsList, LocalDateTime.now(), customer1.getId().intValue(),
                     "S121212121212", 123f);
             saleRepository.save(sale);
+
+            Stock stock = new Stock(book1.getIsbn(), 10, "ASE-K10");
+            Stock stock2 = new Stock(book2.getIsbn(), 20, "ASE-L20");
+            stock.setBook(book1);
+            stock2.setBook(book2);
+            stockRepository.save(stock);
+            stockRepository.save(stock2);
+
+
             log.info("Veriler Yüklendi");
         };
     }
