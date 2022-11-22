@@ -15,18 +15,18 @@ public class Book {
     private int publishYear;
     private int pages;
     @OneToOne
-    private BookSpecification bookSpecification;
+    private BookPrice bookPrice;
 
     public Book() {
     }
 
-    public Book(String isbn, String name, String author, int publishYear, int pages, BookSpecification bookSpecification) {
+    public Book(String isbn, String name, String author, int publishYear, int pages, BookPrice bookPrice) {
         this.isbn = isbn;
         this.name = name;
         this.author = author;
         this.publishYear = publishYear;
         this.pages = pages;
-        this.bookSpecification = bookSpecification;
+        this.bookPrice = bookPrice;
     }
 
     public Long getId() {
@@ -77,17 +77,17 @@ public class Book {
         this.pages = pages;
     }
 
-    public BookSpecification getBookSpecification() {
-        return bookSpecification;
+    public BookPrice getBookPrice() {
+        return bookPrice;
     }
 
-    public void setBookSpecification(BookSpecification bookSpecification) {
-        this.bookSpecification = bookSpecification;
+    public void setBookPrice(BookPrice bookPrice) {
+        this.bookPrice = bookPrice;
     }
 
     @Override
     public String toString() {
         return "Kitabın Bilgileri" + " isbn=" + this.isbn + ", adı=" +
-                this.name + ", ücreti=" + this.bookSpecification.getPrice();
+                this.name + ", ücreti=" + this.bookPrice.getPrice();
     }
 }

@@ -18,7 +18,7 @@ public class LoadDatabase {
 
     @Bean
     CommandLineRunner initDatabase(BookRepository bookRepository,
-                                   BookSpecificationRepository bookSpecificationRepository,
+                                   BookPriceRepository bookPriceRepository,
                                    CustomerRepository customerRepository,
                                    OrderBookItemsRepository orderBookItemsRepository,
                                    SaleRepository saleRepository,
@@ -26,10 +26,10 @@ public class LoadDatabase {
     ) {
 
         return args -> {
-            BookSpecification bs1 = new BookSpecification( 59.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
-            BookSpecification bs2 = new BookSpecification( 79.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
-            bookSpecificationRepository.save(bs1);
-            bookSpecificationRepository.save(bs2);
+            BookPrice bs1 = new BookPrice( 59.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
+            BookPrice bs2 = new BookPrice( 79.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
+            bookPriceRepository.save(bs1);
+            bookPriceRepository.save(bs2);
 
             Book book1 = new Book("123-45", "Bir Zamanlar", "Mehmet Ercan", 2021, 571, bs1);
             Book book2 = new Book("123-46", "Toyota Tarzı", "Jeffrey K. Liner", 2010, 622, bs2);

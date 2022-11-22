@@ -1,9 +1,9 @@
 package com.example.rentabookrestservices.mapper;
 
 import com.example.rentabookrestservices.domain.Book;
-import com.example.rentabookrestservices.domain.BookSpecification;
+import com.example.rentabookrestservices.domain.BookPrice;
 import com.example.rentabookrestservices.dto.BookCreateDto;
-import com.example.rentabookrestservices.dto.BookSpecificationCreateDto;
+import com.example.rentabookrestservices.dto.BookPriceCreateDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -14,6 +14,5 @@ public interface BookMapper {
     Book bookCreateDtoToBook(BookCreateDto bookCreateDto);
 
 
-    BookSpecification bookSpecificationCreateDtoToBookSpecification
-            (BookSpecificationCreateDto bookSpecificationCreateDto);
+    BookPrice bookPriceCreateDtoToBookPrice(BookPriceCreateDto bookPriceCreateDto);
 }

@@ -1,6 +1,6 @@
 package com.example.rentabookrestservices.dto;
 
-public class BookSpecificationCreateDto {
+public class BookPriceCreateDto {
     private float price;
 
 

@@ -6,15 +6,15 @@ public class BookCreateDto {
     private String author;
     private int publishYear;
     private int pages;
-    private BookSpecificationCreateDto bookSpecificationCreateDto;
+    private BookPriceCreateDto bookPriceCreateDto;
 
-    public BookCreateDto(String isbn, String name, String author, int publishYear, int pages, BookSpecificationCreateDto bookSpecificationCreateDto) {
+    public BookCreateDto(String isbn, String name, String author, int publishYear, int pages, BookPriceCreateDto bookPriceCreateDto) {
         this.isbn = isbn;
         this.name = name;
         this.author = author;
         this.publishYear = publishYear;
         this.pages = pages;
-        this.bookSpecificationCreateDto = bookSpecificationCreateDto;
+        this.bookPriceCreateDto = bookPriceCreateDto;
     }
 
     public String getIsbn() {
@@ -57,11 +57,11 @@ public class BookCreateDto {
         this.pages = pages;
     }
 
-    public BookSpecificationCreateDto getBookSpecificationCreateDto() {
-        return bookSpecificationCreateDto;
+    public BookPriceCreateDto getBookPriceCreateDto() {
+        return bookPriceCreateDto;
     }
 
-    public void setBookSpecificationCreateDto(BookSpecificationCreateDto bookSpecificationCreateDto) {
-        this.bookSpecificationCreateDto = bookSpecificationCreateDto;
+    public void setBookPriceCreateDto(BookPriceCreateDto bookPriceCreateDto) {
+        this.bookPriceCreateDto = bookPriceCreateDto;
     }
 }

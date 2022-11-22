@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class BookSpecification {
+public class BookPrice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,10 +14,10 @@ public class BookSpecification {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public BookSpecification() {
+    public BookPrice() {
     }
 
-    public BookSpecification(float price, LocalDate startDate, LocalDate endDate) {
+    public BookPrice(float price, LocalDate startDate, LocalDate endDate) {
         this.price = price;
         this.startDate = startDate;
         this.endDate = endDate;
