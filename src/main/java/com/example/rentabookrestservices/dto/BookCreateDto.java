@@ -1,27 +1,20 @@
 package com.example.rentabookrestservices.dto;
 
-import com.example.rentabookrestservices.domain.BookSpecification;
-
-import javax.persistence.OneToOne;
-
 public class BookCreateDto {
     private String isbn;
     private String name;
     private String author;
     private int publishYear;
     private int pages;
+    private BookSpecificationCreateDto bookSpecificationCreateDto;
 
-    @OneToOne
-    private BookSpecification bookSpecification;
-
-    public BookCreateDto(String isbn, String name, String author, int publishYear, int pages,
-                         BookSpecification bookSpecification) {
+    public BookCreateDto(String isbn, String name, String author, int publishYear, int pages, BookSpecificationCreateDto bookSpecificationCreateDto) {
         this.isbn = isbn;
         this.name = name;
         this.author = author;
         this.publishYear = publishYear;
         this.pages = pages;
-        this.bookSpecification = bookSpecification;
+        this.bookSpecificationCreateDto = bookSpecificationCreateDto;
     }
 
     public String getIsbn() {
@@ -64,11 +57,11 @@ public class BookCreateDto {
         this.pages = pages;
     }
 
-    public BookSpecification getBookSpecification() {
-        return bookSpecification;
+    public BookSpecificationCreateDto getBookSpecificationCreateDto() {
+        return bookSpecificationCreateDto;
     }
 
-    public void setBookSpecification(BookSpecification bookSpecification) {
-        this.bookSpecification = bookSpecification;
+    public void setBookSpecificationCreateDto(BookSpecificationCreateDto bookSpecificationCreateDto) {
+        this.bookSpecificationCreateDto = bookSpecificationCreateDto;
     }
 }

@@ -26,8 +26,8 @@ public class LoadDatabase {
     ) {
 
         return args -> {
-            BookSpecification bs1 = new BookSpecification("123-45", 59.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
-            BookSpecification bs2 = new BookSpecification("123-46", 79.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
+            BookSpecification bs1 = new BookSpecification( 59.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
+            BookSpecification bs2 = new BookSpecification( 79.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
             bookSpecificationRepository.save(bs1);
             bookSpecificationRepository.save(bs2);
 

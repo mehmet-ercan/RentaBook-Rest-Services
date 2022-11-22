@@ -10,7 +10,6 @@ public class BookSpecification {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    private String isbn;
     private float price;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -18,8 +17,7 @@ public class BookSpecification {
     public BookSpecification() {
     }
 
-    public BookSpecification(String isbn, float price, LocalDate startDate, LocalDate endDate) {
-        this.isbn = isbn;
+    public BookSpecification(float price, LocalDate startDate, LocalDate endDate) {
         this.price = price;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -31,14 +29,6 @@ public class BookSpecification {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
     }
 
     public float getPrice() {
