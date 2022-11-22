@@ -8,7 +8,6 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    private String isbn;
     private int quantity;
     private String shelfNumber;
 
@@ -18,12 +17,11 @@ public class Stock {
     public Stock() {
     }
 
-    public Stock(String isbn, int quantity, String shelfNumber) {
-        this.isbn = isbn;
+    public Stock(int quantity, String shelfNumber, Book book) {
         this.quantity = quantity;
         this.shelfNumber = shelfNumber;
+        this.book = book;
     }
-
 
     public Long getId() {
         return id;
@@ -31,14 +29,6 @@ public class Stock {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
     }
 
     public int getQuantity() {

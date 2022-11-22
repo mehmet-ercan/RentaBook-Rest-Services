@@ -38,7 +38,7 @@ public class BookService {
         BookPrice bookPrice = BookMapper.INSTANCE.bookPriceCreateDtoToBookPrice(bookCreateDto.getBookPriceCreateDto());
 
         bookPrice.setStartDate(LocalDate.now());
-        bookPrice.setEndDate(LocalDate.now());
+        bookPrice.setEndDate(LocalDate.parse("9999-12-31"));
         bookPriceRepository.save(bookPrice);
         book.setBookPrice(bookPrice);
         return new ResponseEntity<>(bookRepository.save(book), HttpStatus.CREATED);

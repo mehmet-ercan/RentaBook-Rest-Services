@@ -24,10 +24,13 @@ public class StockController {
         return stockService.getAllStocks();
     }
 
-    @PostMapping("/stocks/{bookId}")
-    public ResponseEntity<Stock> createStock(@PathVariable("bookId") Long bookId,
-                                             @RequestBody Stock stock) {
+    @GetMapping("/stocks/{bookId}")
+    public ResponseEntity<Stock> getStockByBookId(@PathVariable("bookId") Long bookId) {
+        return stockService.getStockByBookId(bookId);
+    }
 
+    @PostMapping("/stocks/{bookId}")
+    public ResponseEntity<Stock> createStock(@PathVariable("bookId") Long bookId, @RequestBody Stock stock) {
         return stockService.createStock(bookId, stock);
     }
 
