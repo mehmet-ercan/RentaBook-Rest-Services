@@ -32,7 +32,7 @@ public class RentService {
 
     public ResponseEntity<Rent> getRent(String operationNumber) {
         Rent rent = rentRepository.findByOperationNumber(operationNumber);
-        return new ResponseEntity<Rent>(rent, HttpStatus.OK);
+        return new ResponseEntity<>(rent, HttpStatus.OK);
     }
 
     public ResponseEntity<Rent> createRent(Rent rent) {

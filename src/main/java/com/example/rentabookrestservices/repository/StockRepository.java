@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface StockRepository extends JpaRepository<Stock, Long> {
     List<Stock> findStockByBook_Id(Long bookId);
+    boolean existsByBook_Id(long bookId);
 }

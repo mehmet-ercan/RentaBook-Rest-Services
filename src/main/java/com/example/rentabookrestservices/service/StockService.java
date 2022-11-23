@@ -2,7 +2,7 @@ package com.example.rentabookrestservices.service;
 
 import com.example.rentabookrestservices.domain.Book;
 import com.example.rentabookrestservices.domain.Stock;
-import com.example.rentabookrestservices.exception.BookNotFoundException;
+import com.example.rentabookrestservices.exception.StockNotFoundException;
 import com.example.rentabookrestservices.repository.BookRepository;
 import com.example.rentabookrestservices.repository.StockRepository;
 import org.springframework.http.HttpStatus;
@@ -20,6 +20,11 @@ public class StockService {
     public StockService(StockRepository stockRepository, BookRepository bookRepository) {
         this.stockRepository = stockRepository;
         this.bookRepository = bookRepository;
+    }
+
+    public Stock findStockById(long stockId) {
+        return stockRepository.findById(stockId)
+                .orElseThrow(() -> new StockNotFoundException(stockId));
     }
 
     public ResponseEntity<List<Stock>> getAllStocks() {
@@ -44,17 +49,22 @@ public class StockService {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    public ResponseEntity<Stock> createStock(Long bookId, Stock stock) {
-        Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new BookNotFoundException(bookId));
+    public ResponseEntity<Stock> createStock(Stock stock) {
+        Book book = stock.getBook();
+        boolean existStock = stockRepository.existsByBook_Id(book.getId());
 
-        //TODO aynı stok daha önce var mı yok mu sorgulanacak
-        //Yoksa yeni stok bilgisi eklenece
-        //Varsa güncelleme işlemi yapılacak
+        if (existStock) {
+            List<Stock> stockList = stockRepository.findStockByBook_Id(book.getId());
+            stockList.get(0).setQuantity(stockList.get(0).getQuantity() + stock.getQuantity());
+            return updateStock(stockList.get(0));
+        }
 
-        stock.setBook(book);
         Stock createdStock = stockRepository.save(stock);
         return new ResponseEntity<>(createdStock, HttpStatus.CREATED);
     }
 
+    public ResponseEntity<Stock> updateStock(Stock newStock) {
+        Stock stock = stockRepository.save(newStock);
+        return new ResponseEntity<>(stock, HttpStatus.OK);
+    }
 }
