@@ -1,42 +1,43 @@
 package com.example.rentabookrestservices.controller;
 
 import com.example.rentabookrestservices.domain.Book;
-import com.example.rentabookrestservices.exception.BookNotFoundException;
-import com.example.rentabookrestservices.repository.BookRepository;
-import com.example.rentabookrestservices.repository.BookSpecificationRepository;
+import com.example.rentabookrestservices.service.BookService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 public class BookController {
-    private final BookRepository bookRepository;
-    private final BookSpecificationRepository bookSpecificationRepository;
 
-    BookController(BookRepository bookRepository, BookSpecificationRepository bookSpecificationRepository) {
-        this.bookRepository = bookRepository;
-        this.bookSpecificationRepository = bookSpecificationRepository;
+    private final BookService bookService;
+
+    BookController(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @GetMapping("/books")
-    List<Book> getAllBooks() {
-        return bookRepository.findAll();
+    public List<Book> getAllBooks() {
+        return bookService.getAllBooks();
     }
 
     @GetMapping("/books/{id}")
-    Book getBook(@PathVariable Long id) {
-        return bookRepository.findById(id)
-                .orElseThrow(() -> new BookNotFoundException(id));
+    public Book getBookById(@PathVariable("id") long id) {
+        return bookService.getBookById(id);
     }
 
     @PostMapping("/books")
-    Book newBook(@RequestBody Book newBook) {
-        bookSpecificationRepository.save(newBook.getBookSpecification());
-        return bookRepository.save(newBook);
+    public Book createBook(@RequestBody Book book) {
+        return bookService.createBook(book);
     }
 
     @DeleteMapping("/books/{id}")
-    void deleteBook(@PathVariable Long id) {
-        bookRepository.deleteById(id);
+    public void deleteBook(@PathVariable Long id) {
+        bookService.deleteBook(id);
     }
+
+    @PutMapping("/books/{id}")
+    public Book updateBook(@PathVariable("id") long id, @RequestBody Book _book) {
+        return bookService.updateBook(id, _book);
+    }
+
+
 }
