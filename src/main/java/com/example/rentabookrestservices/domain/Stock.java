@@ -10,7 +10,6 @@ public class Stock {
     private Long id;
     private int quantity;
     private String shelfNumber;
-
     @OneToOne
     private Book book;
 

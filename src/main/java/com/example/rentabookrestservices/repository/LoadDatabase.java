@@ -49,12 +49,12 @@ public class LoadDatabase {
 
             Stock stock = new Stock(10, "ASE-K10", book1);
             Stock stock2 = new Stock(20, "ASE-L20", book2);
-            Stock stock3 = new Stock(30, "ASE-M20", book2);
+            //Stock stock3 = new Stock(30, "ASE-M20", book2);
             stock.setBook(book1);
             stock2.setBook(book2);
             stockRepository.save(stock);
             stockRepository.save(stock2);
-            stockRepository.save(stock3);
+            //stockRepository.save(stock3);
 
             log.info("Veriler Yüklendi");
         };

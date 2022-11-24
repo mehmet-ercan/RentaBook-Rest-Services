@@ -66,6 +66,4 @@ public class BookService {
         bookRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 }
