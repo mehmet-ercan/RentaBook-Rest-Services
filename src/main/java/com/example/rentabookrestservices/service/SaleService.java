@@ -1,7 +1,7 @@
 package com.example.rentabookrestservices.service;
 
+import com.example.rentabookrestservices.domain.OrderBookItems;
 import com.example.rentabookrestservices.domain.Sale;
-import com.example.rentabookrestservices.domain.SaleBookItems;
 import com.example.rentabookrestservices.exception.ResourceNotFoundException;
 import com.example.rentabookrestservices.repository.SaleBookItemsRepository;
 import com.example.rentabookrestservices.repository.SaleRepository;
@@ -41,8 +41,8 @@ public class SaleService {
     }
 
     public ResponseEntity<Sale> createSale(Sale sale) {
-        List<SaleBookItems> saleBookItems = sale.getSaleBookItems();
-        saleBookItemsRepository.saveAll(saleBookItems);
+        List<OrderBookItems> orderBookItems = sale.getOrderBookItems();
+        saleBookItemsRepository.saveAll(orderBookItems);
 
         return new ResponseEntity<>(saleRepository.save(sale), HttpStatus.CREATED);
     }
