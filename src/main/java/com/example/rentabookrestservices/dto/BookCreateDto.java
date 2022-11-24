@@ -1,40 +1,20 @@
-package com.example.rentabookrestservices.domain;
+package com.example.rentabookrestservices.dto;
 
-import javax.persistence.*;
-
-@Entity
-public class Book {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class BookCreateDto {
     private String isbn;
     private String name;
     private String author;
     private int publishYear;
     private int pages;
-    @OneToOne
-    private BookPrice bookPrice;
+    private BookPriceCreateDto bookPriceCreateDto;
 
-    public Book() {
-    }
-
-    public Book(String isbn, String name, String author, int publishYear, int pages, BookPrice bookPrice) {
+    public BookCreateDto(String isbn, String name, String author, int publishYear, int pages, BookPriceCreateDto bookPriceCreateDto) {
         this.isbn = isbn;
         this.name = name;
         this.author = author;
         this.publishYear = publishYear;
         this.pages = pages;
-        this.bookPrice = bookPrice;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.bookPriceCreateDto = bookPriceCreateDto;
     }
 
     public String getIsbn() {
@@ -77,17 +57,11 @@ public class Book {
         this.pages = pages;
     }
 
-    public BookPrice getBookPrice() {
-        return bookPrice;
+    public BookPriceCreateDto getBookPriceCreateDto() {
+        return bookPriceCreateDto;
     }
 
-    public void setBookPrice(BookPrice bookPrice) {
-        this.bookPrice = bookPrice;
-    }
-
-    @Override
-    public String toString() {
-        return "Kitabın Bilgileri" + " isbn=" + this.isbn + ", adı=" +
-                this.name + ", ücreti=" + this.bookPrice.getPrice();
+    public void setBookPriceCreateDto(BookPriceCreateDto bookPriceCreateDto) {
+        this.bookPriceCreateDto = bookPriceCreateDto;
     }
 }

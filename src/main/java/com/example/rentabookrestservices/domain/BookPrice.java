@@ -4,22 +4,20 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class BookSpecification {
+public class BookPrice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    private String isbn;
     private float price;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public BookSpecification() {
+    public BookPrice() {
     }
 
-    public BookSpecification(String isbn, float price, LocalDate startDate, LocalDate endDate) {
-        this.isbn = isbn;
+    public BookPrice(float price, LocalDate startDate, LocalDate endDate) {
         this.price = price;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -31,14 +29,6 @@ public class BookSpecification {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
     }
 
     public float getPrice() {

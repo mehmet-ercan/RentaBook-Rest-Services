@@ -12,48 +12,49 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Configuration
 public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
     @Bean
     CommandLineRunner initDatabase(BookRepository bookRepository,
-                                   BookSpecificationRepository bookSpecificationRepository,
+                                   BookPriceRepository bookPriceRepository,
                                    CustomerRepository customerRepository,
+                                   OrderBookItemsRepository orderBookItemsRepository,
                                    SaleRepository saleRepository,
-                                   SaleBookItemsRepository saleBookItemsRepository,
-                                   RentRepository rentRepository,
-                                   RentBookItemsRepository rentBookItemsRepository) {
-
+                                   StockRepository stockRepository
+    ) {
         return args -> {
-            BookSpecification bs1 = new BookSpecification("123-45", 59.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
-            BookSpecification bs2 = new BookSpecification("123-46", 79.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
-            bookSpecificationRepository.save(bs1);
-            bookSpecificationRepository.save(bs2);
+            BookPrice bs1 = new BookPrice(59.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
+            BookPrice bs2 = new BookPrice(79.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
+            bookPriceRepository.save(bs1);
+            bookPriceRepository.save(bs2);
 
-            Book b1 = new Book("123-45", "Bir Zamanlar", "Mehmet Ercan", 2021, 571, bs1);
-            Book b2 = new Book("123-46", "Toyota Tarzı", "Jeffrey K. Liner", 2010, 622, bs2);
-            bookRepository.save(b1);
-            bookRepository.save(b2);
+            Book book1 = new Book("123-45", "Bir Zamanlar", "Mehmet Ercan", 2021, 571, bs1);
+            Book book2 = new Book("123-46", "Toyota Tarzı", "Jeffrey K. Liner", 2010, 622, bs2);
+            bookRepository.save(book1);
+            bookRepository.save(book2);
 
-            Customer c1 = new Customer("Ahmet Ali", "Erenler", "+905519896865");
+            Customer customer1 = new Customer("Ahmet Ali", "Erenler", "+905519896865");
+            customerRepository.save(customer1);
 
-            OrderBookItems orderBookItems = new OrderBookItems(b1, 5);
-            orderBookItems = saleBookItemsRepository.save(orderBookItems);
+            OrderBookItems orderBookItems = new OrderBookItems(book1, 1);
+            orderBookItemsRepository.save(orderBookItems);
             List<OrderBookItems> orderBookItemsList = new ArrayList<>();
             orderBookItemsList.add(orderBookItems);
 
-            Sale s1 = new Sale(orderBookItemsList, LocalDateTime.now(), 1, "", 12.f);
-            saleRepository.save(s1);
+            Sale sale = new Sale(orderBookItemsList, LocalDateTime.now(), customer1.getId().intValue(),
+                    "S121212121212", 123f);
+            saleRepository.save(sale);
 
-            orderBookItems = new OrderBookItems(b2, 3);
-            orderBookItems = rentBookItemsRepository.save(orderBookItems);
-            orderBookItemsList = new ArrayList<>();
-            orderBookItemsList.add(orderBookItems);
-
-            Rent r1 = new Rent(orderBookItemsList, LocalDateTime.now(), 1, "", 12.f, LocalDateTime.now(), 123.2f);
-            rentRepository.save(r1);
+            Stock stock = new Stock(10, "ASE-K10", book1);
+            Stock stock2 = new Stock(20, "ASE-L20", book2);
+            Stock stock3 = new Stock(30, "ASE-M20", book2);
+            stock.setBook(book1);
+            stock2.setBook(book2);
+            stockRepository.save(stock);
+            stockRepository.save(stock2);
+            stockRepository.save(stock3);
 
             log.info("Veriler Yüklendi");
         };
