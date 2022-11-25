@@ -2,6 +2,7 @@ package com.example.rentabookrestservices.controller;
 
 import com.example.rentabookrestservices.domain.Customer;
 import com.example.rentabookrestservices.service.CustomerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,17 +20,24 @@ public class CustomerController {
 
     @GetMapping("/customers")
     public ResponseEntity<List<Customer>> getAllCustomers() {
-        return customerService.getAllCustomers();
+        List<Customer> customerList = customerService.getAllCustomers();
+        if (customerList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(customerList, HttpStatus.OK);
     }
 
     @GetMapping("/customers/{id}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Long id) {
-        return customerService.getCustomerById(id);
+        Customer customer = customerService.getCustomerById(id);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     @PostMapping("/customers")
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-        return customerService.createCustomer(customer);
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer _customer) {
+        Customer customer = customerService.createCustomer(_customer);
+        return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
 
 }

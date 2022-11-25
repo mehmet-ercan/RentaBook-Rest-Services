@@ -3,8 +3,6 @@ package com.example.rentabookrestservices.service;
 import com.example.rentabookrestservices.domain.Customer;
 import com.example.rentabookrestservices.exception.CustomerNotFoundException;
 import com.example.rentabookrestservices.repository.CustomerRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,26 +16,22 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public ResponseEntity<List<Customer>> getAllCustomers() {
-        List<Customer> customerList = new ArrayList<>(customerRepository.findAll());
-        //customerList = customerRepository.findAll();
+    public List<Customer> getAllCustomers() {
+        List<Customer> customerList = new ArrayList<>();
+        customerList = customerRepository.findAll();
 
-        if (customerList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(customerList, HttpStatus.OK);
+        return customerList;
     }
 
-    public ResponseEntity<Customer> getCustomerById(Long id) {
+    public Customer getCustomerById(Long id) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException(id));
 
-        return new ResponseEntity<>(customer, HttpStatus.OK);
+        return customer;
     }
 
-    public ResponseEntity<Customer> createCustomer(Customer customer) {
-        return new ResponseEntity<>(customerRepository.save(customer), HttpStatus.CREATED);
+    public Customer createCustomer(Customer customer) {
+        return customerRepository.save(customer);
     }
 
 }
