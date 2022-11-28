@@ -23,6 +23,7 @@ public class BookService {
     }
 
     public List<Book> getAllBooks() {
+        bookRepository.findAll();
         return bookRepository.findAll();
     }
 
@@ -30,6 +31,7 @@ public class BookService {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
     }
+
 
     public Book createBook(BookCreateDto bookCreateDto) {
         Book book = BookMapper.INSTANCE.bookCreateDtoToBook(bookCreateDto);

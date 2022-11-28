@@ -4,8 +4,6 @@ import com.example.rentabookrestservices.domain.OrderBookItems;
 import com.example.rentabookrestservices.domain.Rent;
 import com.example.rentabookrestservices.repository.OrderBookItemsRepository;
 import com.example.rentabookrestservices.repository.RentRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,31 +18,22 @@ public class RentService {
         this.orderBookItemsRepository = orderBookItemsRepository;
     }
 
-    public ResponseEntity<List<Rent>> getAllRents() {
-        List<Rent> rentList = rentRepository.findAll();
-
-        if (rentList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(rentList, HttpStatus.OK);
+    public List<Rent> getAllRents() {
+        return rentRepository.findAll();
     }
 
-    public ResponseEntity<Rent> getRent(String operationNumber) {
-        Rent rent = rentRepository.findByOperationNumber(operationNumber);
-        return new ResponseEntity<>(rent, HttpStatus.OK);
+    public Rent getRent(String operationNumber) {
+        return rentRepository.findByOperationNumber(operationNumber);
     }
 
-    public ResponseEntity<Rent> createRent(Rent rent) {
+    public Rent createRent(Rent rent) {
         List<OrderBookItems> orderBookItems = rent.getOrderBookItems();
         orderBookItemsRepository.saveAll(orderBookItems);
-        return new ResponseEntity<>(rentRepository.save(rent), HttpStatus.CREATED);
+        return rentRepository.save(rent);
     }
 
-
-    public ResponseEntity<HttpStatus> deleteRentByOperationNumber(String operationNumber) {
+    public void deleteRentByOperationNumber(String operationNumber) {
         rentRepository.deleteByOperationNumber(operationNumber);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     public boolean isExistRent(String operationNumber) {

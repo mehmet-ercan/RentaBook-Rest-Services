@@ -11,7 +11,6 @@ import java.util.List;
 
 @Controller
 public class SaleController {
-
     private final SaleService saleService;
 
     public SaleController(SaleService saleService) {
@@ -20,23 +19,35 @@ public class SaleController {
 
     @GetMapping("/sales")
     public ResponseEntity<List<Sale>> getAllSales() {
-        return saleService.getAllSales();
+        List<Sale> saleList = saleService.getAllSales();
+        if (saleList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(saleList, HttpStatus.OK);
     }
 
     @GetMapping("/sales/{operationNumber}")
     public ResponseEntity<Sale> getSaleBySaleNumber(@PathVariable("operationNumber") String operationNumber) {
-        return saleService.getSaleByOperationNumber(operationNumber);
+        boolean isExist = saleService.isExistSale(operationNumber);
+
+        if (isExist) {
+            Sale sale = saleService.getSaleByOperationNumber(operationNumber);
+            return new ResponseEntity<>(sale, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/sales")
-    public ResponseEntity<Sale> createSale(@RequestBody Sale sale) {
-        return saleService.createSale(sale);
+    public ResponseEntity<Sale> createSale(@RequestBody Sale _sale) {
+        return new ResponseEntity<>(saleService.createSale(_sale), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/sales/{operationNumber}")
-    public ResponseEntity<HttpStatus> deleteSale(@PathVariable("operationNumber") String operationNumber){
-        return saleService.deleteSaleByOperationNumber(operationNumber);
+    public ResponseEntity<HttpStatus> deleteSale(@PathVariable("operationNumber") String operationNumber) {
+        saleService.deleteSaleByOperationNumber(operationNumber);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
 }

@@ -25,7 +25,7 @@ public class LoadDatabase {
                                    StockRepository stockRepository
     ) {
         return args -> {
-            BookPrice bs1 = new BookPrice(59.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
+            BookPrice bs1 = new BookPrice(59.75f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
             BookPrice bs2 = new BookPrice(79.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
             bookPriceRepository.save(bs1);
             bookPriceRepository.save(bs2);
@@ -50,6 +50,7 @@ public class LoadDatabase {
             Stock stock = new Stock(10, "ASE-K10", book1);
             Stock stock2 = new Stock(20, "ASE-L20", book2);
             //Stock stock3 = new Stock(30, "ASE-M20", book2);
+
             stock.setBook(book1);
             stock2.setBook(book2);
             stockRepository.save(stock);
