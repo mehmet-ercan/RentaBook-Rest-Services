@@ -42,18 +42,17 @@ public class SaleService {
         sale.setOperationDateTime(LocalDateTime.now());
         sale.setOperationNumber(generateOperationNumber());
 
-        boolean isSuccesful = true;
+        boolean isSuccessful = true;
         Sale _sale = new Sale();
 
         for (OrderBookItems o : orderBookItems) {
-            isSuccesful = stockService.changeStock(o.getBook(), o.getQuantity());
+            isSuccessful = stockService.changeStock(o.getBook(), o.getQuantity());
         }
 
-        if (isSuccesful) {
+        if (isSuccessful) {
             orderBookItemsRepository.saveAll(orderBookItems);
             _sale = saleRepository.save(sale);
         }
-
 
         return _sale;
     }

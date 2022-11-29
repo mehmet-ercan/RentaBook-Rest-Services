@@ -1,6 +1,7 @@
 package com.example.rentabookrestservices.controller;
 
 import com.example.rentabookrestservices.domain.Rent;
+import com.example.rentabookrestservices.dto.RentCreateDto;
 import com.example.rentabookrestservices.service.RentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,10 +39,9 @@ public class RentController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
     @PostMapping("/rents")
-    public ResponseEntity<Rent> createRent(@RequestBody Rent rent) {
-        return new ResponseEntity<>(rentService.createRent(rent), HttpStatus.CREATED);
+    public ResponseEntity<Rent> createRent(@RequestBody RentCreateDto rentCreateDto) {
+        return new ResponseEntity<>(rentService.createRent(rentCreateDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/rents/{operationNumber}")

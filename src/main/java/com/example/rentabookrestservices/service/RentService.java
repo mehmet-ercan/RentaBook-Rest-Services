@@ -2,6 +2,8 @@ package com.example.rentabookrestservices.service;
 
 import com.example.rentabookrestservices.domain.OrderBookItems;
 import com.example.rentabookrestservices.domain.Rent;
+import com.example.rentabookrestservices.dto.RentCreateDto;
+import com.example.rentabookrestservices.mapper.RentMapper;
 import com.example.rentabookrestservices.repository.OrderBookItemsRepository;
 import com.example.rentabookrestservices.repository.RentRepository;
 import org.slf4j.Logger;
@@ -16,10 +18,13 @@ public class RentService {
     Logger logger = LoggerFactory.getLogger(RentService.class);
     private final RentRepository rentRepository;
     private final OrderBookItemsRepository orderBookItemsRepository;
+    private final StockService stockService;
+    private final float REFUND_PERCENT = 0.75F;
 
-    public RentService(RentRepository rentRepository, OrderBookItemsRepository orderBookItemsRepository) {
+    public RentService(RentRepository rentRepository, OrderBookItemsRepository orderBookItemsRepository, StockService stockService) {
         this.rentRepository = rentRepository;
         this.orderBookItemsRepository = orderBookItemsRepository;
+        this.stockService = stockService;
         System.out.println(generateOperationNumber());
     }
 
@@ -31,10 +36,29 @@ public class RentService {
         return rentRepository.findByOperationNumber(operationNumber);
     }
 
-    public Rent createRent(Rent rent) {
+    public Rent createRent(RentCreateDto rentCreateDto) {
+        Rent rent = RentMapper.INSTANCE.rentCreateDtoToRent(rentCreateDto);
         List<OrderBookItems> orderBookItems = rent.getOrderBookItems();
-        orderBookItemsRepository.saveAll(orderBookItems);
-        return rentRepository.save(rent);
+
+        rent.setOperationDateTime(LocalDateTime.now());
+        rent.setOperationNumber(generateOperationNumber());
+
+        rent.setRefundDate(rent.getOperationDateTime().plusDays(14));
+        rent.setRefund(rent.getTotal() * REFUND_PERCENT);
+
+        boolean isSuccessful = true;
+        Rent _rent = new Rent();
+
+        for (OrderBookItems o : orderBookItems) {
+            isSuccessful = stockService.changeStock(o.getBook(), o.getQuantity());
+        }
+
+        if (isSuccessful) {
+            orderBookItemsRepository.saveAll(orderBookItems);
+            _rent = rentRepository.save(rent);
+        }
+
+        return _rent;
     }
 
     public void deleteRentByOperationNumber(String operationNumber) {
