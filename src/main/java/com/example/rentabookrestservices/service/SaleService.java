@@ -2,20 +2,25 @@ package com.example.rentabookrestservices.service;
 
 import com.example.rentabookrestservices.domain.OrderBookItems;
 import com.example.rentabookrestservices.domain.Sale;
+import com.example.rentabookrestservices.dto.SaleCreateDto;
+import com.example.rentabookrestservices.mapper.SaleMapper;
 import com.example.rentabookrestservices.repository.OrderBookItemsRepository;
 import com.example.rentabookrestservices.repository.SaleRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class SaleService {
     private final SaleRepository saleRepository;
     private final OrderBookItemsRepository orderBookItemsRepository;
+    private final StockService stockService;
 
-    public SaleService(SaleRepository saleRepository, OrderBookItemsRepository saleBookItemsRepository1) {
+    public SaleService(SaleRepository saleRepository, OrderBookItemsRepository saleBookItemsRepository1, StockService stockService) {
         this.saleRepository = saleRepository;
         this.orderBookItemsRepository = saleBookItemsRepository1;
+        this.stockService = stockService;
     }
 
     public List<Sale> getAllSales() {
@@ -30,13 +35,37 @@ public class SaleService {
         return saleRepository.existsByOperationNumber(operationNumber);
     }
 
-    public Sale createSale(Sale sale) {
+    public Sale createSale(SaleCreateDto saleCreateDto) {
+        Sale sale = SaleMapper.INSTANCE.saleCreateDtoToSale(saleCreateDto);
         List<OrderBookItems> orderBookItems = sale.getOrderBookItems();
-        orderBookItemsRepository.saveAll(orderBookItems);
-        return saleRepository.save(sale);
+
+        sale.setOperationDateTime(LocalDateTime.now());
+        sale.setOperationNumber(generateOperationNumber());
+
+        boolean isSuccesful = true;
+        Sale _sale = new Sale();
+
+        for (OrderBookItems o : orderBookItems) {
+            isSuccesful = stockService.changeStock(o.getBook(), o.getQuantity());
+        }
+
+        if (isSuccesful) {
+            orderBookItemsRepository.saveAll(orderBookItems);
+            _sale = saleRepository.save(sale);
+        }
+
+
+        return _sale;
     }
 
     public void deleteSaleByOperationNumber(String operationNumber) {
         saleRepository.deleteByOperationNumber(operationNumber);
+    }
+
+    public String generateOperationNumber() {
+        LocalDateTime now = LocalDateTime.now();
+        String operationNumber = "S" + now.getDayOfMonth() + now.getMonthValue()
+                + now.getYear() + now.getHour() + now.getMinute() + now.getSecond();
+        return operationNumber;
     }
 }

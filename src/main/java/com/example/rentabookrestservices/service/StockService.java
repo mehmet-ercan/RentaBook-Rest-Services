@@ -45,4 +45,17 @@ public class StockService {
     public Stock updateStock(Stock newStock) {
         return stockRepository.save(newStock);
     }
+
+    public boolean changeStock(Book _book, int quantity) {
+        List<Stock> stockList = stockRepository.findStockByBook_Id(_book.getId());
+
+        if (stockList.size() == 1) {
+            stockList.get(0).setQuantity(stockList.get(0).getQuantity() - quantity);
+            stockRepository.save(stockList.get(0));
+
+            return true;
+        }
+
+        return false;
+    }
 }
