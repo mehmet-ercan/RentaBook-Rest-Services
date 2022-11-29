@@ -57,6 +57,7 @@ public class SaleService {
         return _sale;
     }
 
+    //TODO sildikten sonra stok servisinden stokları arttır
     public void deleteSaleByOperationNumber(String operationNumber) {
         saleRepository.deleteByOperationNumber(operationNumber);
     }

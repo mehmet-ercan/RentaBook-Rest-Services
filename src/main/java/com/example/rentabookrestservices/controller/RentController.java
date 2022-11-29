@@ -55,4 +55,17 @@ public class RentController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PatchMapping("/refunds/rents/{operationNumber}")
+    public ResponseEntity<Rent> refundRent(@PathVariable("operationNumber") String operationNumber) {
+        if (rentService.isExistRent(operationNumber)) {
+            Rent rent = rentService.refundRent(operationNumber);
+
+            if (rent.getId() != null) {
+                return new ResponseEntity<>(rent, HttpStatus.OK);
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

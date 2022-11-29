@@ -76,4 +76,45 @@ public class RentService {
         logger.info(operationNumber);
         return operationNumber;
     }
+
+    public Rent refundRent(String operationNumber) {
+        Rent rent = getRent(operationNumber);
+        rent.setRefundDate(LocalDateTime.now());
+        rent.setRefund(calculateRefundAmount(rent));
+
+        boolean isSuccessful = true;
+
+        for (OrderBookItems o : rent.getOrderBookItems()) {
+            isSuccessful = stockService.changeStock(o.getBook(), o.getQuantity());
+        }
+
+        if (isSuccessful) {
+            return rent;
+        }
+
+        return new Rent();
+
+    }
+
+    /**
+     * Kitap kiralandı, okundu ve geri getirildiği zaman ne kadar geri ödeme verileceğini hesaplar
+     *
+     * @param rent Hesaplanacak olan geri ödeme miktarının içinde bulunduğu nesne
+     * @return Geri ödeme miktarı
+     */
+    public float calculateRefundAmount(Rent rent) {
+        float refundPercent;
+        int diffDays = rent.getRefundDate().getDayOfYear() - rent.getOperationDateTime().getDayOfYear();
+
+        if (diffDays <= 14) {
+            refundPercent = REFUND_PERCENT;
+        } else if (diffDays <= 24) {
+            refundPercent = REFUND_PERCENT - ((diffDays - 14) * 0.05f);
+        } else {
+            refundPercent = 0.25f;
+        }
+
+        return rent.getTotal() * refundPercent;
+    }
+
 }
