@@ -27,7 +27,7 @@ public class SaleService {
         return saleRepository.findAll();
     }
 
-    public Sale getSaleByOperationNumber(String operationNumber) {
+    public Sale getSale(String operationNumber) {
         return saleRepository.findByOperationNumber(operationNumber);
     }
 
@@ -46,7 +46,7 @@ public class SaleService {
         Sale _sale = new Sale();
 
         for (OrderBookItems o : orderBookItems) {
-            isSuccessful = stockService.changeStock(o.getBook(), o.getQuantity());
+            isSuccessful = stockService.decreaseStock(o.getBook(), o.getQuantity());
         }
 
         if (isSuccessful) {
@@ -57,9 +57,22 @@ public class SaleService {
         return _sale;
     }
 
-    //TODO sildikten sonra stok servisinden stokları arttır
-    public void deleteSaleByOperationNumber(String operationNumber) {
-        saleRepository.deleteByOperationNumber(operationNumber);
+    public boolean deleteSaleByOperationNumber(String operationNumber) {
+
+        Sale sale;
+        if (isExistSale(operationNumber)) {
+            sale = getSale(operationNumber);
+
+            for (OrderBookItems o : sale.getOrderBookItems()) {
+                stockService.increaseStock(o.getBook(), o.getQuantity());
+            }
+
+            saleRepository.deleteByOperationNumber(operationNumber);
+            return true;
+        }
+
+        return false;
+
     }
 
     public String generateOperationNumber() {

@@ -50,7 +50,7 @@ public class RentService {
         Rent _rent = new Rent();
 
         for (OrderBookItems o : orderBookItems) {
-            isSuccessful = stockService.changeStock(o.getBook(), o.getQuantity());
+            isSuccessful = stockService.decreaseStock(o.getBook(), o.getQuantity());
         }
 
         if (isSuccessful) {
@@ -61,8 +61,22 @@ public class RentService {
         return _rent;
     }
 
-    public void deleteRentByOperationNumber(String operationNumber) {
-        rentRepository.deleteByOperationNumber(operationNumber);
+    public boolean deleteRentByOperationNumber(String operationNumber) {
+        Rent rent;
+
+        if (isExistRent(operationNumber)) {
+            rent = getRent(operationNumber);
+
+            for (OrderBookItems o : rent.getOrderBookItems()) {
+                stockService.increaseStock(o.getBook(), o.getQuantity());
+            }
+
+            rentRepository.deleteByOperationNumber(operationNumber);
+            return true;
+        }
+
+        return false;
+
     }
 
     public boolean isExistRent(String operationNumber) {
@@ -85,7 +99,7 @@ public class RentService {
         boolean isSuccessful = true;
 
         for (OrderBookItems o : rent.getOrderBookItems()) {
-            isSuccessful = stockService.changeStock(o.getBook(), o.getQuantity());
+            isSuccessful = stockService.increaseStock(o.getBook(), o.getQuantity());
         }
 
         if (isSuccessful) {

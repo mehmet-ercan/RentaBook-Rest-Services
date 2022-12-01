@@ -33,7 +33,7 @@ public class SaleController {
         boolean isExist = saleService.isExistSale(operationNumber);
 
         if (isExist) {
-            Sale sale = saleService.getSaleByOperationNumber(operationNumber);
+            Sale sale = saleService.getSale(operationNumber);
             return new ResponseEntity<>(sale, HttpStatus.OK);
         }
 
@@ -53,8 +53,11 @@ public class SaleController {
 
     @DeleteMapping("/sales/{operationNumber}")
     public ResponseEntity<HttpStatus> deleteSale(@PathVariable("operationNumber") String operationNumber) {
-        saleService.deleteSaleByOperationNumber(operationNumber);
-        return new ResponseEntity<>(HttpStatus.OK);
+        boolean result = saleService.deleteSaleByOperationNumber(operationNumber);
+        if (result) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

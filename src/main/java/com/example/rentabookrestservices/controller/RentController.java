@@ -46,14 +46,13 @@ public class RentController {
 
     @DeleteMapping("/rents/{operationNumber}")
     public ResponseEntity<HttpStatus> deleteRent(@PathVariable("operationNumber") String operationNumber) {
-        boolean isExistRent = rentService.isExistRent(operationNumber);
+        boolean result = rentService.deleteRentByOperationNumber(operationNumber);
 
-        if (isExistRent) {
-            rentService.deleteRentByOperationNumber(operationNumber);
+        if (result) {
             return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PatchMapping("/refunds/rents/{operationNumber}")
