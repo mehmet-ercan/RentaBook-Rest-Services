@@ -31,7 +31,7 @@ public class StockController {
     }
 
     @GetMapping("/stocks/q")
-    public ResponseEntity<Stock> getStockByBookId(@RequestParam(name = "bookId") long bookId) {
+    public ResponseEntity<Stock> getStockByBookId(@RequestParam(name = "bookId") Long bookId) {
         List<Stock> stockList = stockService.getStockByBookId(bookId);
 
         if (stockList.size() == 0) {

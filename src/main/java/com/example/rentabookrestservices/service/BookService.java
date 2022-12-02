@@ -27,9 +27,11 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Book getBookById(long id) {
-        return bookRepository.findById(id)
+    public Book getBookById(Long id) {
+        Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
+
+        return book;
     }
 
 
@@ -44,7 +46,7 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public Book updateBook(long id, Book _book) {
+    public Book updateBook(Long id, Book _book) {
         Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
         BookPrice bookPrice = bookPriceRepository
                 .findById(_book.getBookPrice().getId()).orElseThrow();
