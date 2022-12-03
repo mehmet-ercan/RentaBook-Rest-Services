@@ -1,10 +1,10 @@
 package com.example.rentabookrestservices.service;
 
-import com.example.rentabookrestservices.domain.Book;
-import com.example.rentabookrestservices.domain.BookPrice;
 import com.example.rentabookrestservices.dto.BookCreateDto;
 import com.example.rentabookrestservices.exception.BookNotFoundException;
 import com.example.rentabookrestservices.mapper.BookMapper;
+import com.example.rentabookrestservices.model.Book;
+import com.example.rentabookrestservices.model.BookPrice;
 import com.example.rentabookrestservices.repository.BookPriceRepository;
 import com.example.rentabookrestservices.repository.BookRepository;
 import org.springframework.stereotype.Service;

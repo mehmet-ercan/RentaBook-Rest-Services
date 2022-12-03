@@ -1,7 +1,7 @@
 package com.example.rentabookrestservices.service;
 
-import com.example.rentabookrestservices.domain.Book;
-import com.example.rentabookrestservices.domain.Stock;
+import com.example.rentabookrestservices.model.Book;
+import com.example.rentabookrestservices.model.Stock;
 import com.example.rentabookrestservices.repository.StockRepository;
 import org.springframework.stereotype.Service;
 

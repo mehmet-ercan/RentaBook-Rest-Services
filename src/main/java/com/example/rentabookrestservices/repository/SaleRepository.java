@@ -1,6 +1,6 @@
 package com.example.rentabookrestservices.repository;
 
-import com.example.rentabookrestservices.domain.Sale;
+import com.example.rentabookrestservices.model.Sale;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;

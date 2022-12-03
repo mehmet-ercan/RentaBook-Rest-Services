@@ -1,6 +1,6 @@
 package com.example.rentabookrestservices.dto;
 
-import com.example.rentabookrestservices.domain.OrderBookItems;
+import com.example.rentabookrestservices.model.OrderBookItems;
 
 import java.util.List;
 

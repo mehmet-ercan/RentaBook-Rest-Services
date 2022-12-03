@@ -1,9 +1,9 @@
 package com.example.rentabookrestservices.service;
 
-import com.example.rentabookrestservices.domain.OrderBookItems;
-import com.example.rentabookrestservices.domain.Rent;
 import com.example.rentabookrestservices.dto.RentCreateDto;
 import com.example.rentabookrestservices.mapper.RentMapper;
+import com.example.rentabookrestservices.model.OrderBookItems;
+import com.example.rentabookrestservices.model.Rent;
 import com.example.rentabookrestservices.repository.OrderBookItemsRepository;
 import com.example.rentabookrestservices.repository.RentRepository;
 import org.slf4j.Logger;

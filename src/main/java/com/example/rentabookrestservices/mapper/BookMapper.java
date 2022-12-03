@@ -1,9 +1,9 @@
 package com.example.rentabookrestservices.mapper;
 
-import com.example.rentabookrestservices.domain.Book;
-import com.example.rentabookrestservices.domain.BookPrice;
 import com.example.rentabookrestservices.dto.BookCreateDto;
 import com.example.rentabookrestservices.dto.BookPriceCreateDto;
+import com.example.rentabookrestservices.model.Book;
+import com.example.rentabookrestservices.model.BookPrice;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

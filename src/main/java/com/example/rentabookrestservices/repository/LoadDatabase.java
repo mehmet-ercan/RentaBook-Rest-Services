@@ -1,6 +1,6 @@
 package com.example.rentabookrestservices.repository;
 
-import com.example.rentabookrestservices.domain.*;
+import com.example.rentabookrestservices.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

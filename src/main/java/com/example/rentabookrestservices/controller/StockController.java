@@ -1,6 +1,6 @@
 package com.example.rentabookrestservices.controller;
 
-import com.example.rentabookrestservices.domain.Stock;
+import com.example.rentabookrestservices.model.Stock;
 import com.example.rentabookrestservices.service.StockService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

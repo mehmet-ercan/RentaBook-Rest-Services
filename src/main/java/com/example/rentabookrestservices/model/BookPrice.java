@@ -1,4 +1,4 @@
-package com.example.rentabookrestservices.domain;
+package com.example.rentabookrestservices.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
