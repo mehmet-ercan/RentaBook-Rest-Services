@@ -7,7 +7,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +24,8 @@ public class LoadDatabase {
                                    StockRepository stockRepository
     ) {
         return args -> {
-            BookPrice bs1 = new BookPrice(59.75f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
-            BookPrice bs2 = new BookPrice(79.99f, LocalDate.parse("2022-11-14"), LocalDate.parse("9999-12-31"));
+            BookPrice bs1 = new BookPrice(59.75f, LocalDateTime.parse("2022-11-14T15:25:59.99"), LocalDateTime.parse("9999-12-31T23:59:59.99"));
+            BookPrice bs2 = new BookPrice(79.99f, LocalDateTime.parse("2022-11-18T15:35:59.99"), LocalDateTime.parse("9999-12-31T23:59:59.99"));
             bookPriceRepository.save(bs1);
             bookPriceRepository.save(bs2);
 

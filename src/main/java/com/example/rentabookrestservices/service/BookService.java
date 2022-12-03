@@ -9,7 +9,7 @@ import com.example.rentabookrestservices.repository.BookPriceRepository;
 import com.example.rentabookrestservices.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -39,8 +39,8 @@ public class BookService {
         Book book = BookMapper.INSTANCE.bookCreateDtoToBook(bookCreateDto);
         BookPrice bookPrice = BookMapper.INSTANCE.bookPriceCreateDtoToBookPrice(bookCreateDto.getBookPriceCreateDto());
 
-        bookPrice.setStartDate(LocalDate.now());
-        bookPrice.setEndDate(LocalDate.parse("9999-12-31"));
+        bookPrice.setStartDate(LocalDateTime.now());
+        bookPrice.setEndDate(LocalDateTime.parse("9999-12-31T23:59:59.99"));
         bookPriceRepository.save(bookPrice);
         book.setBookPrice(bookPrice);
         return bookRepository.save(book);

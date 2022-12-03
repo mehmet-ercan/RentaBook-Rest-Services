@@ -14,4 +14,8 @@ public interface BookMapper {
     Book bookCreateDtoToBook(BookCreateDto bookCreateDto);
 
     BookPrice bookPriceCreateDtoToBookPrice(BookPriceCreateDto bookPriceCreateDto);
+
+    BookCreateDto bookToBookCreateDto(Book book);
+
+    BookPriceCreateDto bookPriceToBookPriceCreateDto(BookPrice bookPrice);
 }

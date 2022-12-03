@@ -1,7 +1,7 @@
 package com.example.rentabookrestservices.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class BookPrice {
@@ -11,13 +11,13 @@ public class BookPrice {
     @Column(name = "id", nullable = false)
     private Long id;
     private float price;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     public BookPrice() {
     }
 
-    public BookPrice(float price, LocalDate startDate, LocalDate endDate) {
+    public BookPrice(float price, LocalDateTime startDate, LocalDateTime endDate) {
         this.price = price;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -39,19 +39,29 @@ public class BookPrice {
         this.price = price;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }
