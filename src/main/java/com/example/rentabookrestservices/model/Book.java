@@ -85,13 +85,12 @@ public class Book {
         this.bookPrice = bookPrice;
     }
 
-    /*
-        @Override
-        public String toString() {
-            return "Kitabın Bilgileri" + " isbn=" + this.isbn + ", adı=" +
-                    this.name + ", ücreti=" + this.bookPrice.getPrice();
-        }
-    */
+    @Override
+    public String toString() {
+        return "Kitabın Bilgileri" + " isbn=" + this.isbn + ", adı=" +
+                this.name + ", ücreti=" + this.bookPrice.getPrice();
+    }
+
 
     @Override
     public int hashCode() {

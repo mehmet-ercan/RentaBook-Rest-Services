@@ -27,14 +27,13 @@ public class BookServiceTest {
     @Mock
     BookService bookService;
 
-
     @Test
-    public void Should_Success_When_CreateBook_WithRepository() {
+    public void Should_Success_When_CreateBook() {
         //arrange
         bookRepository = mock(BookRepository.class);
         bookPriceRepository = mock(BookPriceRepository.class);
+        bookService = mock(BookService.class);
 
-        bookService = new BookService(bookRepository, bookPriceRepository);
         BookPrice bookPrice = new BookPrice(15F, LocalDateTime.now(), LocalDateTime.now());
         Book book = new Book("A", "A", "A", 2022, 1, bookPrice);
 
@@ -48,35 +47,13 @@ public class BookServiceTest {
 
         //act
         BookPrice resultBookPrice = bookPriceRepository.save(bookPrice);
-        Book resultBook = bookRepository.save(book);
-
-        //TODO repository değil de servis içerisindeki creteBook fonksiyonu dönüşünden gelen book nesnesini assert et!
-        //Book resultBook = bookService.createBook(bookCreateDto);
+        Book resultBookRepository = bookRepository.save(book);
+        Book resultBookService = bookService.createBook(bookCreateDto);
 
         //assert
-        assertEquals(book, resultBook);
+        assertEquals(bookPrice,resultBookPrice);
+        assertEquals(book, resultBookRepository);
+        assertEquals(book, resultBookService);
     }
 
-    @Test
-    public void Should_Success_When_CreateBook_WithService() {
-        //arrange
-        bookRepository = mock(BookRepository.class);
-        bookPriceRepository = mock(BookPriceRepository.class);
-
-        bookService = new BookService(bookRepository, bookPriceRepository);
-        BookPrice bookPrice = new BookPrice(15F, LocalDateTime.now(), LocalDateTime.now());
-        Book book = new Book("A", "A", "A", 2022, 1, bookPrice);
-
-        BookCreateDto bookCreateDto = BookMapper.INSTANCE.bookToBookCreateDto(book);
-        BookPriceCreateDto bookPriceCreateDto = BookMapper.INSTANCE.bookPriceToBookPriceCreateDto(bookPrice);
-        bookCreateDto.setBookPriceCreateDto(bookPriceCreateDto);
-
-        when(bookService.createBook(bookCreateDto)).thenReturn(book);
-
-        //act
-        Book resultBook = bookService.createBook(bookCreateDto);
-
-        //assert
-        assertEquals(book, resultBook);
-    }
 }
