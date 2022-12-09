@@ -18,7 +18,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class BookServiceTest {
+public class BookServiceUnitTest {
 
     @Mock
     BookRepository bookRepository;
