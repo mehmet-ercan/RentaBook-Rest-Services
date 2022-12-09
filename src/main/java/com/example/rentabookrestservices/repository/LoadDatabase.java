@@ -36,26 +36,25 @@ public class LoadDatabase {
             bookRepository.save(book2);
 
             Customer customer1 = new Customer("Ahmet Ali", "Erenler", "+905519896865");
+            Customer customer2 = new Customer("Mehmet Osman", "Gani", "+905459685478");
             customerRepository.save(customer1);
+            customerRepository.save(customer2);
 
             OrderBookItems orderBookItems = new OrderBookItems(book1, 1);
             orderBookItemsRepository.save(orderBookItems);
             List<OrderBookItems> orderBookItemsList = new ArrayList<>();
             orderBookItemsList.add(orderBookItems);
 
+            Stock stock = new Stock(10, "ASE-K10", book1);
+            Stock stock2 = new Stock(20, "ASE-L20", book2);
+            stockRepository.save(stock);
+            stockRepository.save(stock2);
+
             Sale sale = new Sale(orderBookItemsList, LocalDateTime.now(), customer1.getId().intValue(),
                     "S121212121212", 123f);
             saleRepository.save(sale);
 
-            Stock stock = new Stock(10, "ASE-K10", book1);
-            Stock stock2 = new Stock(20, "ASE-L20", book2);
-            //Stock stock3 = new Stock(30, "ASE-M20", book2);
 
-            stock.setBook(book1);
-            stock2.setBook(book2);
-            stockRepository.save(stock);
-            stockRepository.save(stock2);
-            //stockRepository.save(stock3);
 
             log.info("Veriler Yüklendi");
         };

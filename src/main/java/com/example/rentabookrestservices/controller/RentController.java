@@ -1,6 +1,7 @@
 package com.example.rentabookrestservices.controller;
 
 import com.example.rentabookrestservices.domain.Rent;
+import com.example.rentabookrestservices.dto.RentCreateDto;
 import com.example.rentabookrestservices.service.RentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,21 +39,32 @@ public class RentController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
     @PostMapping("/rents")
-    public ResponseEntity<Rent> createRent(@RequestBody Rent rent) {
-        return new ResponseEntity<>(rentService.createRent(rent), HttpStatus.CREATED);
+    public ResponseEntity<Rent> createRent(@RequestBody RentCreateDto rentCreateDto) {
+        return new ResponseEntity<>(rentService.createRent(rentCreateDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/rents/{operationNumber}")
     public ResponseEntity<HttpStatus> deleteRent(@PathVariable("operationNumber") String operationNumber) {
-        boolean isExistRent = rentService.isExistRent(operationNumber);
+        boolean result = rentService.deleteRentByOperationNumber(operationNumber);
 
-        if (isExistRent) {
-            rentService.deleteRentByOperationNumber(operationNumber);
+        if (result) {
             return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PatchMapping("/refunds/rents/{operationNumber}")
+    public ResponseEntity<Rent> refundRent(@PathVariable("operationNumber") String operationNumber) {
+        if (rentService.isExistRent(operationNumber)) {
+            Rent rent = rentService.refundRent(operationNumber);
+
+            if (rent.getId() != null) {
+                return new ResponseEntity<>(rent, HttpStatus.OK);
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

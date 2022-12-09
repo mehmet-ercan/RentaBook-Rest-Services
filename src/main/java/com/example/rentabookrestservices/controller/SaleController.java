@@ -1,6 +1,7 @@
 package com.example.rentabookrestservices.controller;
 
 import com.example.rentabookrestservices.domain.Sale;
+import com.example.rentabookrestservices.dto.SaleCreateDto;
 import com.example.rentabookrestservices.service.SaleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class SaleController {
         boolean isExist = saleService.isExistSale(operationNumber);
 
         if (isExist) {
-            Sale sale = saleService.getSaleByOperationNumber(operationNumber);
+            Sale sale = saleService.getSale(operationNumber);
             return new ResponseEntity<>(sale, HttpStatus.OK);
         }
 
@@ -40,14 +41,23 @@ public class SaleController {
     }
 
     @PostMapping("/sales")
-    public ResponseEntity<Sale> createSale(@RequestBody Sale _sale) {
-        return new ResponseEntity<>(saleService.createSale(_sale), HttpStatus.CREATED);
+    public ResponseEntity<Sale> createSale(@RequestBody SaleCreateDto saleCreateDto) {
+        Sale sale = saleService.createSale(saleCreateDto);
+
+        if (sale.getId() != null) {
+            return new ResponseEntity<>(sale, HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/sales/{operationNumber}")
     public ResponseEntity<HttpStatus> deleteSale(@PathVariable("operationNumber") String operationNumber) {
-        saleService.deleteSaleByOperationNumber(operationNumber);
-        return new ResponseEntity<>(HttpStatus.OK);
+        boolean result = saleService.deleteSaleByOperationNumber(operationNumber);
+        if (result) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

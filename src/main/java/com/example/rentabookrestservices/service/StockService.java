@@ -28,21 +28,45 @@ public class StockService {
         boolean existStock = stockRepository.existsByBook_Id(book.getId());
 
         if (existStock) {
+            //TODO stok verisi alındığında birden fazla kayıt gelirse hata vermesi sağlanmalı
             List<Stock> stockList = stockRepository.findStockByBook_Id(book.getId());
-
-            if (stockList.size() > 1) {
-
-            }
-
             stockList.get(0).setQuantity(stockList.get(0).getQuantity() + stock.getQuantity());
             return updateStock(stockList.get(0));
         }
 
-        Stock createdStock = stockRepository.save(stock);
-        return createdStock;
+        return stockRepository.save(stock);
     }
 
     public Stock updateStock(Stock newStock) {
         return stockRepository.save(newStock);
     }
+
+    public boolean increaseStock(Book _book, int quantity){
+
+        List<Stock> stockList = stockRepository.findStockByBook_Id(_book.getId());
+
+        if (stockList.size() == 1) {
+            stockList.get(0).setQuantity(stockList.get(0).getQuantity() + quantity);
+            stockRepository.save(stockList.get(0));
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean decreaseStock(Book _book, int quantity){
+
+        List<Stock> stockList = stockRepository.findStockByBook_Id(_book.getId());
+
+        if (stockList.size() == 1) {
+            stockList.get(0).setQuantity(stockList.get(0).getQuantity() - quantity);
+            stockRepository.save(stockList.get(0));
+
+            return true;
+        }
+
+        return false;
+    }
+
 }
