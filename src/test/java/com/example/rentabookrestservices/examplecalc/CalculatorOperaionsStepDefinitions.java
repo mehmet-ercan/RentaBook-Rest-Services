@@ -1,4 +1,4 @@
-package com.example.rentabookrestservices;
+package com.example.rentabookrestservices.examplecalc;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -7,7 +7,7 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 
 
-public class StepDefinitions {
+public class CalculatorOperaionsStepDefinitions {
     public class Calc {
         int add(int n1, int n2) {
             return n1 + n2;

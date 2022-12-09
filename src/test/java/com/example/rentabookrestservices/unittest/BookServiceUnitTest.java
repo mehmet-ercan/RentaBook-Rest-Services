@@ -1,4 +1,4 @@
-package com.example.rentabookrestservices.service;
+package com.example.rentabookrestservices.unittest;
 
 import com.example.rentabookrestservices.dto.BookCreateDto;
 import com.example.rentabookrestservices.dto.BookPriceCreateDto;
@@ -7,6 +7,7 @@ import com.example.rentabookrestservices.model.Book;
 import com.example.rentabookrestservices.model.BookPrice;
 import com.example.rentabookrestservices.repository.BookPriceRepository;
 import com.example.rentabookrestservices.repository.BookRepository;
+import com.example.rentabookrestservices.service.BookService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
