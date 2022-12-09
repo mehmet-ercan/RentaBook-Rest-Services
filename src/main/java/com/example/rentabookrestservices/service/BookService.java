@@ -7,8 +7,6 @@ import com.example.rentabookrestservices.exception.BookNotFoundException;
 import com.example.rentabookrestservices.mapper.BookMapper;
 import com.example.rentabookrestservices.repository.BookPriceRepository;
 import com.example.rentabookrestservices.repository.BookRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,6 +23,7 @@ public class BookService {
     }
 
     public List<Book> getAllBooks() {
+        bookRepository.findAll();
         return bookRepository.findAll();
     }
 
@@ -33,7 +32,8 @@ public class BookService {
                 .orElseThrow(() -> new BookNotFoundException(id));
     }
 
-    public ResponseEntity<Book> createBook(BookCreateDto bookCreateDto) {
+
+    public Book createBook(BookCreateDto bookCreateDto) {
         Book book = BookMapper.INSTANCE.bookCreateDtoToBook(bookCreateDto);
         BookPrice bookPrice = BookMapper.INSTANCE.bookPriceCreateDtoToBookPrice(bookCreateDto.getBookPriceCreateDto());
 
@@ -41,7 +41,7 @@ public class BookService {
         bookPrice.setEndDate(LocalDate.parse("9999-12-31"));
         bookPriceRepository.save(bookPrice);
         book.setBookPrice(bookPrice);
-        return new ResponseEntity<>(bookRepository.save(book), HttpStatus.CREATED);
+        return bookRepository.save(book);
     }
 
     public Book updateBook(long id, Book _book) {
@@ -62,8 +62,11 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public ResponseEntity<HttpStatus> deleteBook(Long id) {
+    public void deleteBook(Long id) {
         bookRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public List<Book> getBookByIsbnNumber(String isbnNumber) {
+        return bookRepository.findBookByIsbn(isbnNumber);
     }
 }

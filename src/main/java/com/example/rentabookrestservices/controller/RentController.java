@@ -19,18 +19,29 @@ public class RentController {
 
     @GetMapping("/rents")
     public ResponseEntity<List<Rent>> getAllRents() {
-        return rentService.getAllRents();
+        List<Rent> rentList = rentService.getAllRents();
+
+        if (rentList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(rentList, HttpStatus.OK);
     }
 
     @GetMapping("/rents/{operationNumber}")
     public ResponseEntity<Rent> getRent(@PathVariable("operationNumber") String operationNumber) {
-        return rentService.getRent(operationNumber);
+        if (rentService.isExistRent(operationNumber)) {
+            Rent rent = rentService.getRent(operationNumber);
+            return new ResponseEntity<>(rent, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 
     @PostMapping("/rents")
     public ResponseEntity<Rent> createRent(@RequestBody Rent rent) {
-        return rentService.createRent(rent);
+        return new ResponseEntity<>(rentService.createRent(rent), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/rents/{operationNumber}")
@@ -38,7 +49,8 @@ public class RentController {
         boolean isExistRent = rentService.isExistRent(operationNumber);
 
         if (isExistRent) {
-            return rentService.deleteRentByOperationNumber(operationNumber);
+            rentService.deleteRentByOperationNumber(operationNumber);
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

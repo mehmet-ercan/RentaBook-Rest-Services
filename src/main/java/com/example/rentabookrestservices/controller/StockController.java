@@ -2,6 +2,7 @@ package com.example.rentabookrestservices.controller;
 
 import com.example.rentabookrestservices.domain.Stock;
 import com.example.rentabookrestservices.service.StockService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,17 +22,29 @@ public class StockController {
 
     @GetMapping("/stocks")
     public ResponseEntity<List<Stock>> getAllStocks() {
-        return stockService.getAllStocks();
+        List<Stock> stockList = stockService.getAllStocks();
+        if (stockList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(stockList, HttpStatus.OK);
     }
 
     @GetMapping("/stocks/q")
     public ResponseEntity<Stock> getStockByBookId(@RequestParam(name = "bookId") long bookId) {
-        return stockService.getStockByBookId(bookId);
+        List<Stock> stockList = stockService.getStockByBookId(bookId);
+
+        if (stockList.size() == 0) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else if (stockList.size() == 1) {
+            return new ResponseEntity<>(stockList.get(0), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/stocks")
     public ResponseEntity<Stock> createStock(@RequestBody Stock stock) {
-        return stockService.createStock(stock);
+        return new ResponseEntity<>(stockService.createStock(stock), HttpStatus.CREATED);
     }
-
 }

@@ -11,38 +11,47 @@ import java.util.List;
 
 @RestController
 public class BookController {
-
     private final BookService bookService;
 
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
 
-
     @GetMapping("/books")
-    public List<Book> getAllBooks() {
-        return bookService.getAllBooks();
+    public ResponseEntity<List<Book>> getAllBooks() {
+        return new ResponseEntity<>(bookService.getAllBooks(), HttpStatus.OK);
     }
 
     @GetMapping("/books/{id}")
-    public Book getBookById(long id) {
-        return bookService.getBookById(id);
+    public ResponseEntity<Book> getBookById(long id) {
+        return new ResponseEntity<>(bookService.getBookById(id), HttpStatus.OK);
     }
+
+    @GetMapping("/books/q")
+    public ResponseEntity<Book> getBookByIsbnNumber(@RequestParam(name = "isbn") String isbnNumber) {
+        List<Book> bookList = bookService.getBookByIsbnNumber(isbnNumber);
+
+        if (bookList.size() == 1) {
+            return new ResponseEntity<>(bookList.get(0), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 
     @PostMapping("/books")
     public ResponseEntity<Book> createBook(@RequestBody BookCreateDto bookCreateDto) {
-        return bookService.createBook(bookCreateDto);
+        return new ResponseEntity<>(bookService.createBook(bookCreateDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/books/{id}")
     public ResponseEntity<HttpStatus> deleteBook(@PathVariable Long id) {
-        return bookService.deleteBook(id);
+        bookService.deleteBook(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/books/{id}")
-    public Book updateBook(@PathVariable("id") long id, @RequestBody Book book) {
-        return bookService.updateBook(id, book);
+    public ResponseEntity<Book> updateBook(@PathVariable("id") long id, @RequestBody Book book) {
+        return new ResponseEntity<>(bookService.updateBook(id, book), HttpStatus.OK);
     }
-
-
 }

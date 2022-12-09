@@ -2,11 +2,8 @@ package com.example.rentabookrestservices.service;
 
 import com.example.rentabookrestservices.domain.OrderBookItems;
 import com.example.rentabookrestservices.domain.Sale;
-import com.example.rentabookrestservices.exception.ResourceNotFoundException;
 import com.example.rentabookrestservices.repository.OrderBookItemsRepository;
 import com.example.rentabookrestservices.repository.SaleRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,34 +18,25 @@ public class SaleService {
         this.orderBookItemsRepository = saleBookItemsRepository1;
     }
 
-    public ResponseEntity<List<Sale>> getAllSales() {
-        List<Sale> saleList = saleRepository.findAll();
-
-        if (saleList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(saleList, HttpStatus.OK);
+    public List<Sale> getAllSales() {
+        return saleRepository.findAll();
     }
 
-    public ResponseEntity<Sale> getSaleByOperationNumber(String operationNumber) {
-        if (!saleRepository.existsByOperationNumber(operationNumber)) {
-            throw new ResourceNotFoundException(operationNumber);
-        }
-
-        Sale sale = saleRepository.findByOperationNumber(operationNumber);
-        return new ResponseEntity<>(sale, HttpStatus.OK);
+    public Sale getSaleByOperationNumber(String operationNumber) {
+        return saleRepository.findByOperationNumber(operationNumber);
     }
 
-    public ResponseEntity<Sale> createSale(Sale sale) {
+    public boolean isExistSale(String operationNumber) {
+        return saleRepository.existsByOperationNumber(operationNumber);
+    }
+
+    public Sale createSale(Sale sale) {
         List<OrderBookItems> orderBookItems = sale.getOrderBookItems();
         orderBookItemsRepository.saveAll(orderBookItems);
-
-        return new ResponseEntity<>(saleRepository.save(sale), HttpStatus.CREATED);
+        return saleRepository.save(sale);
     }
 
-    public ResponseEntity<HttpStatus> deleteSaleByOperationNumber(String operationNumber) {
+    public void deleteSaleByOperationNumber(String operationNumber) {
         saleRepository.deleteByOperationNumber(operationNumber);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
