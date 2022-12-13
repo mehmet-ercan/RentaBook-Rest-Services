@@ -1,7 +1,7 @@
-package com.example.rentabookrestservices.bookoparationsmmvc;
+package com.example.rentabookrestservices.definitions;
 
-import com.example.rentabookrestservices.bookoperations.CucumberIntegrationTest;
 import com.example.rentabookrestservices.controller.BookController;
+import com.example.rentabookrestservices.runner.CucumberIntegrationTest;
 import com.example.rentabookrestservices.service.BookService;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,8 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = BookController.class)
-public class BookOperationsMMvcStepDefinitions extends CucumberIntegrationTest {
+@WebMvcTest(controllers = BookController.class) //@WebMvcTest(BookController.class)
+public class BookListStepDefinitions extends CucumberIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -23,18 +23,18 @@ public class BookOperationsMMvcStepDefinitions extends CucumberIntegrationTest {
     @MockBean
     BookService bookService;
 
-    @Given("Kullanıcı web sitesini açarr")
-    public void kullanıcıWebSitesiniAcarr() {
+    @Given("Kitaplar sisteme eklenmiş olmalı")
+    public void kullanici_web_sitesini_acar() {
     }
 
-    @When("Kullanıcı kitapları listelemek istediğindee")
-    public void kullanıcıKitaplarıListelemekIstedigindee() {
+    @When("Kullanıcı kitapları listelemek istediğinde")
+    public void kullanici_kitaplari_listeler() {
         //when(bookService.getAllBooks()).thenReturn("");
+        //Mockito.doReturn(HttpStatus.OK).when(bookService.getAllBooks());
     }
 
-    @Then("Dükkanda bulunan kitapları görüntülerr")
-    public void dükkandaBulunanKitaplarıGoruntuler() throws Exception {
-
+    @Then("Dükkanda bulunan kitapları listeler")
+    public void dukkanda_bulunan_kitaplari_goruntuler() throws Exception {
         mockMvc.perform(get("/books")).andExpect(status().isOk());
     }
 
