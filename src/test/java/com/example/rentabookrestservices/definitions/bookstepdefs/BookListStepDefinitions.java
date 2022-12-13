@@ -1,4 +1,4 @@
-package com.example.rentabookrestservices.definitions;
+package com.example.rentabookrestservices.definitions.bookstepdefs;
 
 import com.example.rentabookrestservices.controller.BookController;
 import com.example.rentabookrestservices.runner.CucumberIntegrationTest;

@@ -1,4 +1,4 @@
-package com.example.rentabookrestservices.definitions;
+package com.example.rentabookrestservices.definitions.bookstepdefs;
 
 import com.example.rentabookrestservices.controller.BookController;
 import com.example.rentabookrestservices.dto.BookCreateDto;
@@ -42,8 +42,8 @@ public class BookCreateStepDefinitions extends CucumberIntegrationTest {
     BookCreateDto bookCreateDto;
     Book book;
 
-    @Given("Kullanıcı kitap bilgilerini girerr")
-    public void kullanici_kitap_bilgilerini_girer() {
+    @Given("Kitap bilgileri girilmiştir")
+    public void kitap_bilgileri_girilmistir() {
         bookPrice = new BookPrice(15F, LocalDateTime.now(), LocalDateTime.now());
         book = new Book("A", "A", "A", 2022, 1, bookPrice);
         bookCreateDto = BookMapper.INSTANCE.bookToBookCreateDto(book);
@@ -52,8 +52,8 @@ public class BookCreateStepDefinitions extends CucumberIntegrationTest {
         bookCreateDto.setBookPriceCreateDto(bookPriceCreateDto);
     }
 
-    @When("Kullanıcı kitap ekleme butonuna tıkladığındaa")
-    public void kullanici_kitap_ekleme_butonuna_tikladiginda() throws JsonProcessingException {
+    @When("Kitap ekle butonuna tıklandığında")
+    public void kitap_ekle_butonuna_tikladiginda() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
@@ -61,8 +61,8 @@ public class BookCreateStepDefinitions extends CucumberIntegrationTest {
         //when(bookService.createBook(bookCreateDto)).thenReturn(book);
     }
 
-    @Then("Kitap eklenmiş olurr")
-    public void kitap_eklenmis_olur() throws Exception {
+    @Then("Kitap eklenir")
+    public void kitap_eklenir() throws Exception {
         mockMvc.perform(post("/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody)
