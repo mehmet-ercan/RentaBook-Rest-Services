@@ -1,15 +1,15 @@
-Feature: Kiralama işlemleri özelliği
-  Scenario: Başarılı kitap kiralama senaryosu
-    Given Kiralanacak kitap ve müşteri bilgileri girilmelidir
-    When Kitap kiralama butonuna basıldığında
-    Then Kitap ilgili müşteriye kiralanmalıdır
+Feature: Kiralama islemleri özelligi
+  Scenario: Basarili kitap kiralama senaryosu
+    Given Kiralanacak kitap ve musteri bilgileri girilmelidir
+    When Kitap kiralama butonuna basildiginda
+    Then Kitap ilgili musteriye kiralanmalidir
 
     Scenario: Kitap kiralama iptal senaryosu
-      Given İptal işemi için geçerli bir fiş numarası vardır
-      When Fiş numarası girilip iptal butonuna basıldığında
-      Then Kitap kiralama işlemi iptal edilmelidir
+      Given Iptal islemi icin gecerli bir fis numarasi vardir
+      When Fis numarasi girilip iptal butonuna basildiginda
+      Then Kitap kiralama islemi iptal edilmelidir
 
-      Scenario: Geçerli fiş numarası ile ilgili kiralama bilgilerine erişme senaryosu
-        Given Kiralama işlemi daha önceden yapılmış olup geçerli bir fiş numarası vardır
-        When Fiş numarası girildiğince
-        Then İlgili kiralama bilgilerine erişilir
+  Scenario: Gecerli fis numarasi ile ilgili kiralama bilgilerine erisme senaryosu
+    Given Kiralama islemi daha önceden yapilmis olup gecerli bir "fisNumarasi" vardir
+    When Fis numarasi girildiginde
+    Then Ilgili kiralama bilgilerine erisilir
