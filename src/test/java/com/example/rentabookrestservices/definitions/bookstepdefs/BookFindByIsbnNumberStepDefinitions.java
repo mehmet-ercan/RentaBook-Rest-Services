@@ -18,10 +18,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers = BookController.class)
 public class BookFindByIsbnNumberStepDefinitions extends CucumberIntegrationTest {
-
     @Autowired
     MockMvc mockMvc;
-
     @Autowired
     @MockBean
     BookService bookService;

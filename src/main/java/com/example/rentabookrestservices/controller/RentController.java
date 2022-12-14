@@ -67,4 +67,5 @@ public class RentController {
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
 }

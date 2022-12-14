@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 public class BookController {
-
     private final BookService bookService;
 
     public BookController(BookService bookService) {
@@ -40,7 +39,6 @@ public class BookController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-
     @PostMapping("/books")
     public ResponseEntity<Book> createBook(@RequestBody BookCreateDto bookCreateDto) {
         return new ResponseEntity<>(bookService.createBook(bookCreateDto), HttpStatus.CREATED);
@@ -56,4 +54,5 @@ public class BookController {
     public ResponseEntity<Book> updateBook(@PathVariable("id") Long id, @RequestBody Book book) {
         return new ResponseEntity<>(bookService.updateBook(id, book), HttpStatus.OK);
     }
+
 }

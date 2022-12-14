@@ -81,4 +81,5 @@ public class SaleService {
                 + now.getYear() + now.getHour() + now.getMinute() + now.getSecond();
         return operationNumber;
     }
+
 }

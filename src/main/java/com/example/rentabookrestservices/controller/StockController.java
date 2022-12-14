@@ -47,4 +47,5 @@ public class StockController {
     public ResponseEntity<Stock> createStock(@RequestBody Stock stock) {
         return new ResponseEntity<>(stockService.createStock(stock), HttpStatus.CREATED);
     }
+
 }

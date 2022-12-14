@@ -34,7 +34,6 @@ public class BookService {
         return book;
     }
 
-
     public Book createBook(BookCreateDto bookCreateDto) {
         Book book = BookMapper.INSTANCE.bookCreateDtoToBook(bookCreateDto);
         BookPrice bookPrice = BookMapper.INSTANCE.bookPriceCreateDtoToBookPrice(bookCreateDto.getBookPriceCreateDto());
@@ -71,4 +70,5 @@ public class BookService {
     public List<Book> getBookByIsbnNumber(String isbnNumber) {
         return bookRepository.findBookByIsbn(isbnNumber);
     }
+    
 }

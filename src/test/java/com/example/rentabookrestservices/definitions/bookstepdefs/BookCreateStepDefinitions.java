@@ -8,7 +8,6 @@ import com.example.rentabookrestservices.model.Book;
 import com.example.rentabookrestservices.model.BookPrice;
 import com.example.rentabookrestservices.runner.CucumberIntegrationTest;
 import com.example.rentabookrestservices.service.BookService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -20,6 +19,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDateTime;
 
@@ -32,15 +32,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class BookCreateStepDefinitions extends CucumberIntegrationTest {
     @Autowired
     MockMvc mockMvc;
-
     @MockBean
     @Autowired
     BookService bookService;
-
     String requestBody;
     BookPrice bookPrice;
     BookCreateDto bookCreateDto;
     Book book;
+    ResultActions result;
 
     @Given("Kitap bilgileri girilmiştir")
     public void kitap_bilgileri_girilmistir() {
@@ -53,22 +52,23 @@ public class BookCreateStepDefinitions extends CucumberIntegrationTest {
     }
 
     @When("Kitap ekle butonuna tıklandığında")
-    public void kitap_ekle_butonuna_tikladiginda() throws JsonProcessingException {
+    public void kitap_ekle_butonuna_tikladiginda() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         requestBody = objectMapper.writeValueAsString(bookCreateDto);
         //when(bookService.createBook(bookCreateDto)).thenReturn(book);
+
+        result = mockMvc.perform(post("/books")
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print());
     }
 
     @Then("Kitap eklenir")
     public void kitap_eklenir() throws Exception {
-        mockMvc.perform(post("/books")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isCreated())
-                .andReturn();
+        result.andExpect(status().isCreated()).andReturn();
     }
+
 }
