@@ -1,6 +1,6 @@
 package com.example.rentabookrestservices.controller;
 
-import com.example.rentabookrestservices.domain.Stock;
+import com.example.rentabookrestservices.model.Stock;
 import com.example.rentabookrestservices.service.StockService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ public class StockController {
     }
 
     @GetMapping("/stocks/q")
-    public ResponseEntity<Stock> getStockByBookId(@RequestParam(name = "bookId") long bookId) {
+    public ResponseEntity<Stock> getStockByBookId(@RequestParam(name = "bookId") Long bookId) {
         List<Stock> stockList = stockService.getStockByBookId(bookId);
 
         if (stockList.size() == 0) {
@@ -47,4 +47,5 @@ public class StockController {
     public ResponseEntity<Stock> createStock(@RequestBody Stock stock) {
         return new ResponseEntity<>(stockService.createStock(stock), HttpStatus.CREATED);
     }
+
 }

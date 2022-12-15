@@ -1,6 +1,6 @@
 package com.example.rentabookrestservices.controller;
 
-import com.example.rentabookrestservices.domain.Customer;
+import com.example.rentabookrestservices.model.Customer;
 import com.example.rentabookrestservices.service.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +10,7 @@ import java.util.List;
 
 @RestController
 public class CustomerController {
-
     private final CustomerService customerService;
-
 
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;

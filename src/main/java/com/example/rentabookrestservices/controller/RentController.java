@@ -1,7 +1,7 @@
 package com.example.rentabookrestservices.controller;
 
-import com.example.rentabookrestservices.domain.Rent;
 import com.example.rentabookrestservices.dto.RentCreateDto;
+import com.example.rentabookrestservices.model.Rent;
 import com.example.rentabookrestservices.service.RentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,4 +67,5 @@ public class RentController {
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
 }

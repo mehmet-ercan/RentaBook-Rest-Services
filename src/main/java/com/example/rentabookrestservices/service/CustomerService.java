@@ -1,7 +1,7 @@
 package com.example.rentabookrestservices.service;
 
-import com.example.rentabookrestservices.domain.Customer;
 import com.example.rentabookrestservices.exception.CustomerNotFoundException;
+import com.example.rentabookrestservices.model.Customer;
 import com.example.rentabookrestservices.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 

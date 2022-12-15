@@ -1,6 +1,6 @@
 package com.example.rentabookrestservices.repository;
 
-import com.example.rentabookrestservices.domain.Book;
+import com.example.rentabookrestservices.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

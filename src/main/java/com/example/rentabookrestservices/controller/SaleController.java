@@ -1,7 +1,7 @@
 package com.example.rentabookrestservices.controller;
 
-import com.example.rentabookrestservices.domain.Sale;
 import com.example.rentabookrestservices.dto.SaleCreateDto;
+import com.example.rentabookrestservices.model.Sale;
 import com.example.rentabookrestservices.service.SaleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

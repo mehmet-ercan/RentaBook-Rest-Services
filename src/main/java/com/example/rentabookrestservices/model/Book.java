@@ -1,4 +1,4 @@
-package com.example.rentabookrestservices.domain;
+package com.example.rentabookrestservices.model;
 
 import javax.persistence.*;
 
@@ -89,5 +89,16 @@ public class Book {
     public String toString() {
         return "Kitabın Bilgileri" + " isbn=" + this.isbn + ", adı=" +
                 this.name + ", ücreti=" + this.bookPrice.getPrice();
+    }
+
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }

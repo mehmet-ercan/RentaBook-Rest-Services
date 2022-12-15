@@ -1,9 +1,9 @@
 package com.example.rentabookrestservices.service;
 
-import com.example.rentabookrestservices.domain.OrderBookItems;
-import com.example.rentabookrestservices.domain.Sale;
 import com.example.rentabookrestservices.dto.SaleCreateDto;
 import com.example.rentabookrestservices.mapper.SaleMapper;
+import com.example.rentabookrestservices.model.OrderBookItems;
+import com.example.rentabookrestservices.model.Sale;
 import com.example.rentabookrestservices.repository.OrderBookItemsRepository;
 import com.example.rentabookrestservices.repository.SaleRepository;
 import org.springframework.stereotype.Service;
@@ -81,4 +81,5 @@ public class SaleService {
                 + now.getYear() + now.getHour() + now.getMinute() + now.getSecond();
         return operationNumber;
     }
+
 }
