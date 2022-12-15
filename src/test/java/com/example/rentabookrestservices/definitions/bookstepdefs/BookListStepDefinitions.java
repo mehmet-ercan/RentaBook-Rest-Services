@@ -21,7 +21,7 @@ public class BookListStepDefinitions extends CucumberIntegrationTest {
     MockMvc mockMvc;
     @MockBean
     BookService bookService;
-    ResultActions perform;
+    ResultActions resultActions;
 
     @Given("Kitaplar sisteme eklenmiş olmalı")
     public void kullanici_web_sitesini_acar() {
@@ -29,12 +29,12 @@ public class BookListStepDefinitions extends CucumberIntegrationTest {
 
     @When("Kullanıcı kitapları listelemek istediğinde")
     public void kullanici_kitaplari_listeler() throws Exception {
-        perform = mockMvc.perform(get("/books"));
+        resultActions = mockMvc.perform(get("/books"));
     }
 
     @Then("Dükkanda bulunan kitapları listeler")
     public void dukkanda_bulunan_kitaplari_goruntuler() throws Exception {
-        perform.andExpect(status().isOk());
+        resultActions.andExpect(status().isOk());
     }
 
 }

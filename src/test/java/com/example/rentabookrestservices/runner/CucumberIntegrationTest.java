@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 //@CucumberOptions(features =  "src/test/resources/features/bookoperations", plugin = {"pretty", "html:target/cucumber/bookoperations"})
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/features/bookoperations"
+@CucumberOptions(features = "src/test/resources/features"
         , glue = "src/test/java/com/example/rentabookrestservices/definitions")
 public class CucumberIntegrationTest {
 }

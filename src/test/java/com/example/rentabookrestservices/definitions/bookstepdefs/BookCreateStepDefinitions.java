@@ -35,11 +35,11 @@ public class BookCreateStepDefinitions extends CucumberIntegrationTest {
     @MockBean
     @Autowired
     BookService bookService;
-    String requestBody;
     BookPrice bookPrice;
     BookCreateDto bookCreateDto;
     Book book;
     ResultActions result;
+    ObjectMapper objectMapper;
 
     @Given("Kitap bilgileri girilmiştir")
     public void kitap_bilgileri_girilmistir() {
@@ -53,10 +53,11 @@ public class BookCreateStepDefinitions extends CucumberIntegrationTest {
 
     @When("Kitap ekle butonuna tıklandığında")
     public void kitap_ekle_butonuna_tikladiginda() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        requestBody = objectMapper.writeValueAsString(bookCreateDto);
+
+        String requestBody = objectMapper.writeValueAsString(bookCreateDto);
         //when(bookService.createBook(bookCreateDto)).thenReturn(book);
 
         result = mockMvc.perform(post("/books")
@@ -68,7 +69,7 @@ public class BookCreateStepDefinitions extends CucumberIntegrationTest {
 
     @Then("Kitap eklenir")
     public void kitap_eklenir() throws Exception {
-        result.andExpect(status().isCreated()).andReturn();
+        result.andExpect(status().isCreated());
     }
 
 }

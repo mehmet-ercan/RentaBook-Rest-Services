@@ -21,6 +21,7 @@ public class LoadDatabase {
                                    CustomerRepository customerRepository,
                                    OrderBookItemsRepository orderBookItemsRepository,
                                    SaleRepository saleRepository,
+                                   RentRepository rentRepository,
                                    StockRepository stockRepository
     ) {
         return args -> {
@@ -39,21 +40,24 @@ public class LoadDatabase {
             customerRepository.save(customer1);
             customerRepository.save(customer2);
 
-            OrderBookItems orderBookItems = new OrderBookItems(book1, 1);
-            orderBookItemsRepository.save(orderBookItems);
-            List<OrderBookItems> orderBookItemsList = new ArrayList<>();
-            orderBookItemsList.add(orderBookItems);
-
             Stock stock = new Stock(10, "ASE-K10", book1);
             Stock stock2 = new Stock(20, "ASE-L20", book2);
             stockRepository.save(stock);
             stockRepository.save(stock2);
 
-            Sale sale = new Sale(orderBookItemsList, LocalDateTime.now(), customer1.getId().intValue(),
-                    "S121212121212", 123f);
+            OrderBookItems orderBookItems = new OrderBookItems(book1, 1);
+            orderBookItemsRepository.save(orderBookItems);
+            List<OrderBookItems> orderBookItemsList = new ArrayList<>();
+            orderBookItemsList.add(orderBookItems);
+            Sale sale = new Sale(orderBookItemsList, LocalDateTime.now(), customer1.getId().intValue(), "S121212121212", 123f);
             saleRepository.save(sale);
 
-
+            orderBookItems = new OrderBookItems(book1, 1);
+            orderBookItemsRepository.save(orderBookItems);
+            orderBookItemsList = new ArrayList<>();
+            orderBookItemsList.add(orderBookItems);
+            Rent rent = new Rent(orderBookItemsList, LocalDateTime.now(), customer1.getId().intValue(), "R121212121212", 123f, LocalDateTime.now(), 120f);
+            rentRepository.save(rent);
 
             log.info("Veriler Yüklendi");
         };

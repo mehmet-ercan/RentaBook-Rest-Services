@@ -10,4 +10,6 @@ public interface RentMapper {
     RentMapper INSTANCE = Mappers.getMapper(RentMapper.class);
 
     Rent rentCreateDtoToRent(RentCreateDto rentCreateDto);
+
+    RentCreateDto rentToRentCreateDto(Rent rent);
 }

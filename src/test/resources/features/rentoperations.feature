@@ -4,12 +4,12 @@ Feature: Kiralama islemleri özelligi
     When Kitap kiralama butonuna basildiginda
     Then Kitap ilgili musteriye kiralanmalidir
 
-    Scenario: Kitap kiralama iptal senaryosu
-      Given Iptal islemi icin gecerli bir fis numarasi vardir
-      When Fis numarasi girilip iptal butonuna basildiginda
-      Then Kitap kiralama islemi iptal edilmelidir
-
   Scenario: Gecerli fis numarasi ile ilgili kiralama bilgilerine erisme senaryosu
-    Given Kiralama islemi daha önceden yapilmis olup gecerli bir "fisNumarasi" vardir
+    Given Kiralama islemi daha önceden yapilmis olup gecerli bir "R121212121212" vardir
     When Fis numarasi girildiginde
     Then Ilgili kiralama bilgilerine erisilir
+
+    Scenario: Kitap kiralama iptal senaryosu
+      Given Iptal islemi icin gecerli bir "R121212121212" fis numarasi vardir
+      When Fis numarasi girilip iptal butonuna basildiginda
+      Then Kitap kiralama islemi iptal edilmelidir
