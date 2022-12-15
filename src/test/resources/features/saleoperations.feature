@@ -1,15 +1,15 @@
-Feature: Satış işlemleri özelliği
-  Scenario: Başarılı kitap satışı senaryosu
-    Given Satın alınacak kitap ve müşteri bilgileri girilmelidir
-    When Kitap satışı butonuna basıldığında
-    Then Kitap ilgili müşteriye satılmış olmalıdır
+Feature: Satis islemleri ozelligi
+  Scenario: Basarili kitap satisi senaryosu
+    Given Satin alinacak kitap ve musteri bilgileri girilmelidir
+    When Kitap satisi butonuna basildiginda
+    Then Kitap ilgili musteriye satilmis olmalidir
 
-  Scenario: Kitap satışı iptal senaryosu
-    Given İptal işemi için geçerli bir fiş numarası vardır
-    When Fiş numarası girilip iptal butonuna basıldığında
-    Then Satınalma işlemi iptal edilmelidir
+  Scenario: Kitap satisi iptal senaryosu
+    Given Iptal islemi icin gecerli bir fis numarasi "S121212121212" vardir
+    When Satinalmayi iptal icin fis numarasi girildiginde
+    Then Satinalma islemi iptal edilmelidir
 
-  Scenario: Geçerli fiş numarası ile ilgili satış bilgilerine erişme senaryosu
-    Given Satınalma işlemi daha önceden yapılmış olup geçerli bir fiş numarası vardır
-    When Fiş numarası girildiğince
-    Then İlgili satınalma bilgilerine erişilir
+  Scenario: Gecerli fis numarasi ile ilgili satis bilgilerine erisme senaryosu
+    Given Satinalma islemi daha onceden yapilmis olup gecerli bir fis numarasi "S121212121212" vardir
+    When Fis numarasi girildigince
+    Then Ilgili satinalma bilgilerine erisilir
