@@ -8,3 +8,13 @@ Feature: Stok işlemleri özelliği
       Given Sistemde stok eklenecek olan kitap kayıtlı olmalıdır
       When Kayıtlı kitaba ait stok girildiğinde
       Then Stok bilgisi kaydedilmiş olur
+
+      Scenario: Belirli bir kitabın stock bilgisine ulaşma senaryosu
+        Given İlgili kitabın id <3> numarası bilinmelidir
+        When Kullanıcı kitabın stock bilgilerini sorguladığında
+        Then ilgili kitabın stok bilgilerine ulaşılmış olur
+
+  Scenario: Olmayan bir kitabın stock bilgisine ulaşma senaryosu
+    Given Kayıtlı olmayan bir kitabın id <3> numarası olmalıdır
+    When Kullanıcı kitabın stock bilgilerini sorguladığında
+    Then Kitabın kayıtlı olmadığından dolayı kullanıcı hata alır
