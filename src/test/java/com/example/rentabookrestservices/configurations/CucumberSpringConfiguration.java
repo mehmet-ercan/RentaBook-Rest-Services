@@ -1,4 +1,4 @@
-package com.example.rentabookrestservices.runner;
+package com.example.rentabookrestservices.configurations;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
