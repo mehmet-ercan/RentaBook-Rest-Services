@@ -32,7 +32,7 @@ public class CustomerCreateStepDefinitions extends CucumberIntegrationTest {
 
     @Given("Musteri bilgileri olan {string}, {string} ve {string} bilgileri alinir")
     public void musteriBilgileriOlanVeBilgileriAlinir(String name, String surName, String phoneNumber) {
-        customer = new Customer(name, surName, phoneNumber);
+       customer = customerService.createCustomer(new Customer(name, surName, phoneNumber));
     }
 
     @When("Bilgiler ilgili alanlara girildikten sonra kaydet butonuna basilir")

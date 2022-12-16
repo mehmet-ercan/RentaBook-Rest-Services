@@ -50,8 +50,8 @@ public class RentCreateStepDefinitions extends CucumberIntegrationTest {
         rentCreateDto = new RentCreateDto(orderBookItemsList, 3, 300);
     }
 
-    @When("Kitap kiralama butonuna basildiginda")
-    public void kitapKiralamaButonunaBasildiginda() throws Exception {
+    @When("Kitap kiralama işlemi gerçekleştiğinde")
+    public void kitapKiralamaIslemiGerceklestiginde() throws Exception {
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
@@ -68,5 +68,6 @@ public class RentCreateStepDefinitions extends CucumberIntegrationTest {
     public void kitapIlgiliMusteriyeKiralanmalidir() throws Exception {
         result.andExpect(status().isCreated());
     }
+
 
 }

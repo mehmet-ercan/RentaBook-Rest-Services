@@ -1,7 +1,7 @@
 Feature: Kiralama islemleri özelligi
   Scenario: Basarili kitap kiralama senaryosu
     Given Kiralanacak kitap ve musteri bilgileri girilmelidir
-    When Kitap kiralama butonuna basildiginda
+    When Kitap kiralama işlemi gerçekleştiğinde
     Then Kitap ilgili musteriye kiralanmalidir
 
   Scenario: Gecerli fis numarasi ile ilgili kiralama bilgilerine erisme senaryosu

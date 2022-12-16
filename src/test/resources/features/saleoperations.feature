@@ -1,7 +1,7 @@
 Feature: Satis islemleri ozelligi
   Scenario: Basarili kitap satisi senaryosu
     Given Satin alinacak kitap ve musteri bilgileri girilmelidir
-    When Kitap satisi butonuna basildiginda
+    When Kitap satış işlemi gerçekleştiğinde
     Then Kitap ilgili musteriye satilmis olmalidir
 
   Scenario: Kitap satisi iptal senaryosu
